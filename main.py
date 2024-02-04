@@ -10,7 +10,6 @@ client = DiscordClient(config.discord_token)
 
 all_messages = client.fetch_messages(config.bheem_channels["alerts"])
 new_message = util.check_new_message(all_messages, config.files_list["bheem_alerts"])
-
 if new_message:
     bheem = BheemParser()
     bheem.parse_alert_message_data(new_message)
@@ -19,7 +18,7 @@ if new_message:
         if bheem.check_alert_data():
             notifyer.new_alert(bheem.alert, new_message)
             # update trade
-            if user["autotrade_enabled"]:
+            if user["autotrade_enabled"] and bheem.check_alert_action():
                 try:
                     bybit = Bybit(user)
                 except Exception as e:
