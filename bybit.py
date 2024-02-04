@@ -249,6 +249,7 @@ class Bybit:
             report = f'No {pair} position found'
             return report
         size = float(result["result"]["list"][0]["size"])
+        size = self.check_max_qty(size)
         # close position by market order
         try:
             result = self.session.place_order(category="linear",
