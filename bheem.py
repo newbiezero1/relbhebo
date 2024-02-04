@@ -130,10 +130,12 @@ class BheemParser:
         data = message.split(" ")
         # pair maybe first and upper
         if data[0].isupper():
-            self.alert["pair"] = data[0].lower()
+            self.alert["pair"] = data[0].lower().strip(":")
         else:
             # cant recognize pair
             return self.alert
+        # value is other
+        self.alert['value'] = data[2].lower()
         # action must be second
         self.alert["action"] = data[1].lower()
         if self.alert["action"] == "sl":
@@ -144,8 +146,10 @@ class BheemParser:
             self.alert["action"] = "cancel"
         elif self.alert["action"] == "canceled":
             self.alert["action"] = "cancel"
-        # value is other
-        self.alert['value'] = data[2].lower()
+        elif self.alert["action"] == "filled":
+            if message.lower().find("sl be"):
+                self.alert["action"] = "move_sl"
+                self.alert["value"] = "be"
 
         return self.alert
 
