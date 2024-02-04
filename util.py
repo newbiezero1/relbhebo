@@ -5,7 +5,7 @@ import config
 from notifyer import Notifyer
 
 
-def error(message: str, finish: bool =True) -> None:
+def error(message: str, finish: bool = True) -> None:
     """ Print error or another error trigger"""
     # send error to admins tg
     admins_chat_ids = []

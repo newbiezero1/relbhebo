@@ -117,10 +117,6 @@ class BheemParser:
         # start find sl
         self.find_sl(line)
         return
-        for key, part in enumerate(data):
-            if part.lower().find("sl:") >= 0:
-                self.trade['sl'] = data[key+1]
-
 
     def parse_message_data(self, message: str) -> dict:
         """parse bheem message as:"""

@@ -6,6 +6,7 @@ import util
 
 class Bybit:
     """Class for work with bybit"""
+
     def __init__(self, user):
         self.user_name = user["name"]
         self.risk_percent = user["trade_risk_in_proc"]
@@ -31,7 +32,7 @@ class Bybit:
     def get_current_price(self) -> None:
         """Get symbol current price"""
         data = self.session.get_mark_price_kline(symbol=self.trade["pair"], category="linear", interval=1, limit=1)
-        if(data["retCode"] != 0):
+        if data["retCode"] != 0:
             util.error(f"Cant receive market data: *{self.trade["pair"]}*")
         self.current_price = float(data["result"]["list"][0][4])
 
@@ -45,13 +46,13 @@ class Bybit:
             index = 10
         elif diff > 100 and diff < 1000:
             index = 100
-        return value / (index  * 1000)
+        return value / (index * 1000)
 
     def set_trade_data(self, trade: dict) -> None:
         """Convert data from message to float format and pair spec and convert values"""
         # format pair
         self.trade["pair"] = trade["pair"].upper() + "USDT"
-        if(trade["side"] == "long"):
+        if trade["side"] == "long":
             self.trade["side"] = "Buy"
         else:
             self.trade["side"] = "Sell"
@@ -103,24 +104,21 @@ class Bybit:
     def place_market_order(self, sl_size: float) -> dict:
         """Send market order"""
         amount_usdt = (self.balance * self.current_price * sl_size) / (self.current_price - self.trade["sl"])
-        order = {}
-        order["symbol"] = self.trade["pair"]
-        order["side"] = self.trade["side"]
-        order["orderType"] = "Market"
+        order = {"symbol": self.trade["pair"], "side": self.trade["side"], "orderType": "Market"}
         round_index = self.get_round_index(self.current_price)
-        order["qty"] = round(amount_usdt / self.current_price,round_index)
+        order["qty"] = round(amount_usdt / self.current_price, round_index)
         order["stopLoss"] = self.trade["sl"]
         order["takeProfit"] = 0
         if self.trade["tp"] and self.trade["tp"] != "tbd":
             order["takeProfit"] = self.trade["tp"]
         try:
             result = self.session.place_order(category="linear",
-                                            symbol=order["symbol"],
-                                            side=order["side"],
-                                            orderType=order["orderType"],
-                                            qty=order["qty"],
-                                            stopLoss=order["stopLoss"],
-                                            takeProfit=order["takeProfit"])
+                                              symbol=order["symbol"],
+                                              side=order["side"],
+                                              orderType=order["orderType"],
+                                              qty=order["qty"],
+                                              stopLoss=order["stopLoss"],
+                                              takeProfit=order["takeProfit"])
         except Exception as e:
             util.error(f"Error place order: {e}")
         if result["retCode"] != 0:
@@ -134,13 +132,10 @@ class Bybit:
     def place_limit_order(self, entry: float, sl_size: float) -> dict:
         """Send limit order"""
         amount_usdt = (self.balance * entry * sl_size) / (entry - self.trade["sl"])
-        order = {}
-        order["symbol"] = self.trade["pair"]
-        order["side"] = self.trade["side"]
-        order["orderType"] = "Limit"
+        order = {"symbol": self.trade["pair"], "side": self.trade["side"], "orderType": "Limit"}
 
         round_index = self.get_round_index(entry)
-        order["qty"] = round(amount_usdt / entry,round_index)
+        order["qty"] = round(amount_usdt / entry, round_index)
         order["price"] = entry
         order["stopLoss"] = self.trade["sl"]
         order["takeProfit"] = 0
@@ -148,13 +143,13 @@ class Bybit:
             order["takeProfit"] = self.trade["tp"]
         try:
             result = self.session.place_order(category="linear",
-                                            symbol=order["symbol"],
-                                            side=order["side"],
-                                            orderType=order["orderType"],
-                                            qty=order["qty"],
-                                            price=entry,
-                                            stopLoss=order["stopLoss"],
-                                            takeProfit=order["takeProfit"])
+                                              symbol=order["symbol"],
+                                              side=order["side"],
+                                              orderType=order["orderType"],
+                                              qty=order["qty"],
+                                              price=entry,
+                                              stopLoss=order["stopLoss"],
+                                              takeProfit=order["takeProfit"])
         except Exception as e:
             util.error(f"Error place order: {e}")
         if result["retCode"] != 0:

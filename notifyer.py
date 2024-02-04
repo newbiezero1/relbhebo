@@ -3,6 +3,7 @@ import requests
 
 import config
 
+
 class Notifyer:
     """Class for notifying via TelegramBot"""
     def __init__(self, chat_id: int):
@@ -18,7 +19,7 @@ class Notifyer:
             parse_mode = ""
 
         url = f"https://api.telegram.org/bot{self.token}/sendMessage?{parse_mode}chat_id={self.chat_id}{disable_notification}"
-        response = requests.post(url, data={"text":message})  # this sends the message
+        requests.post(url, data={"text": message})  # this sends the message
 
     def new_trade(self, trade_info: dict, origin_message: str) -> None:
         message = f'''Parse trade: 
@@ -29,7 +30,7 @@ class Notifyer:
             TP: *{trade_info["tp"]}*
             ===
             Original message:
-            {origin_message}'''.replace("    ","")
+            {origin_message}'''.replace("    ", "")
         self.send_message(message, silence=True)
 
     def place_order(self, order: dict) -> None:

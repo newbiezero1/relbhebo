@@ -20,7 +20,7 @@ if new_messages:
             # notify in tg about new message
             notifyer.new_trade(bheem.trade, new_messages)
 
-            #make trade if this user enable autotrade
+            # make trade if this user enable autotrade
             if user["autotrade_enabled"]:
                 try:
                     bybit = Bybit(user)
