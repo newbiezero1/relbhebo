@@ -132,7 +132,7 @@ class Bybit:
                                               stopLoss=order["stopLoss"],
                                               takeProfit=order["takeProfit"])
         except Exception as e:
-            util.error(f'Error place order: {e}')
+            util.error(f'Error place order: {e}', finish=False)
         if result["retCode"] != 0:
             util.error(f'Warning place order: {result["retMsg"]}', finish=False)
         order["result"] = result["retMsg"]
@@ -164,7 +164,7 @@ class Bybit:
                                               stopLoss=order["stopLoss"],
                                               takeProfit=order["takeProfit"])
         except Exception as e:
-            util.error(f'Error place order: {e}')
+            util.error(f'Error place order: {e}', finish=False)
         if result["retCode"] != 0:
             util.error(f'Warning place order: {result["retMsg"]}', finish=False)
         order["result"] = result["retMsg"]
@@ -192,7 +192,7 @@ class Bybit:
                                                 symbol=pair,
                                                 openOnly=0)
         except Exception as e:
-            util.error(f'Error get orders: {e}')
+            util.error(f'Error get orders: {e}', finish=False)
         if result["retCode"] != 0:
             util.error(f'Warning get order: {result["retMsg"]}', finish=False)
 
@@ -207,7 +207,7 @@ class Bybit:
                                           symbol=pair,
                                           orderId=order["orderId"])
             except Exception as e:
-                util.error(f'Error cancel orders: {e}')
+                util.error(f'Error cancel orders: {e}', finish=False)
             if result["retCode"] != 0:
                 util.error(f'Warning cancel order: {response["retMsg"]}', finish=False)
             report += f'Cancel _{order["orderId"]}_: *{response["retMsg"]}*\n'
@@ -258,7 +258,7 @@ class Bybit:
                                               orderType='Market',
                                               qty=size)
         except Exception as e:
-            util.error(f'Error place order: {e}')
+            util.error(f'Error place order: {e}', finish=False)
         if result["retCode"] != 0:
             util.error(f'Warning place order: {result["retMsg"]}', finish=False)
         report = f'Close position _{pair}_: *{result["retMsg"]}*\n'
@@ -287,7 +287,7 @@ class Bybit:
                                                    symbol=pair,
                                                    stopLoss=entry)
         except Exception as e:
-            util.error(f'Error move stop: {e}')
+            util.error(f'Error move stop: {e}', finish=False)
         if result["retCode"] != 0:
             util.error(f'Warning move stop: {result["retMsg"]}', finish=False)
         report = f'Move stop for position _{pair}_ to _{entry}_ : *{result["retMsg"]}*\n'
