@@ -15,7 +15,7 @@ def get_last_command() -> dict:
     old_id = util.get_content_file(config.files_list["tg_bot_message"])
     new_id = data["update_id"]
     if old_id != new_id:
-        #util.set_content_file(config.files_list["tg_bot_message"], new_id)
+        util.set_content_file(config.files_list["tg_bot_message"], new_id)
         return data["message"]
     else:
         return {}
