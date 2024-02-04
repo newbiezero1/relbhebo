@@ -24,7 +24,7 @@ class Bybit:
         wallet_balance = self.session.get_wallet_balance(accountType="CONTRACT", coin="USDT")
         if wallet_balance["retCode"] != 0:
             self.api_error_flag = True
-            util.error(f"Error retrieving wallet, user: {self.user_name}", finish=False)
+            util.error(f'Error retrieving wallet, user: {self.user_name}', finish=False)
             return 0
         balance = float(wallet_balance["result"]["list"][0]["coin"][0]["walletBalance"])
         return balance
@@ -33,7 +33,7 @@ class Bybit:
         """Get symbol current price"""
         data = self.session.get_mark_price_kline(symbol=self.trade["pair"], category="linear", interval=1, limit=1)
         if data["retCode"] != 0:
-            util.error(f"Cant receive market data: *{self.trade["pair"]}*")
+            util.error(f'Cant receive market data: *{self.trade["pair"]}*')
         self.current_price = float(data["result"]["list"][0][4])
 
     def format_big_value_to_real(self, value: float) -> float:
@@ -120,9 +120,9 @@ class Bybit:
                                               stopLoss=order["stopLoss"],
                                               takeProfit=order["takeProfit"])
         except Exception as e:
-            util.error(f"Error place order: {e}")
+            util.error(f'Error place order: {e}')
         if result["retCode"] != 0:
-            util.error(f"Warning place order: {result['retMsg']}", finish=False)
+            util.error(f'Warning place order: {result['retMsg']}', finish=False)
         order["result"] = result["retMsg"]
         order["orderId"] = result["result"]["orderId"]
         order["current_price"] = self.current_price
@@ -151,9 +151,9 @@ class Bybit:
                                               stopLoss=order["stopLoss"],
                                               takeProfit=order["takeProfit"])
         except Exception as e:
-            util.error(f"Error place order: {e}")
+            util.error(f'Error place order: {e}')
         if result["retCode"] != 0:
-            util.error(f"Warning place order: {result['retMsg']}", finish=False)
+            util.error(f'Warning place order: {result['retMsg']}', finish=False)
         order["result"] = result["retMsg"]
         order["orderId"] = result["result"]["orderId"]
         order["current_price"] = self.current_price

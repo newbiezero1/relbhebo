@@ -25,7 +25,7 @@ if new_messages:
                 try:
                     bybit = Bybit(user)
                 except Exception as e:
-                    util.error(f"can't connect to bybit api, user: *{user["name"]}*", finish=False)
+                    util.error(f'can\'t connect to bybit api, user: *{user["name"]}*', finish=False)
                     continue
                 bybit.set_trade_data(bheem.trade)
                 bybit.make_trade()
