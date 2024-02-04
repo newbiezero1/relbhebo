@@ -106,12 +106,19 @@ class Bybit:
             round_index = 3
         return round_index
 
+    def check_max_qty(self, qty: float) -> float:
+        if self.trade["pair"] == "JUPUSDT":
+            if qty > 15000:
+                return 15000
+        return qty
+
     def place_market_order(self, sl_size: float) -> dict:
         """Send market order"""
         amount_usdt = (self.balance * self.current_price * sl_size) / (self.current_price - self.trade["sl"])
         order = {"symbol": self.trade["pair"], "side": self.trade["side"], "orderType": "Market"}
         round_index = self.get_round_index(self.current_price)
         order["qty"] = round(amount_usdt / self.current_price, round_index)
+        order['qty'] = self.check_max_qty(order["qty"])
         order["stopLoss"] = self.trade["sl"]
         order["takeProfit"] = 0
         if self.trade["tp"] and self.trade["tp"] != "tbd":
@@ -141,6 +148,7 @@ class Bybit:
 
         round_index = self.get_round_index(entry)
         order["qty"] = round(amount_usdt / entry, round_index)
+        order['qty'] = self.check_max_qty(order["qty"])
         order["price"] = entry
         order["stopLoss"] = self.trade["sl"]
         order["takeProfit"] = 0
