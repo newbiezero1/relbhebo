@@ -122,7 +122,7 @@ class Bybit:
         except Exception as e:
             util.error(f'Error place order: {e}')
         if result["retCode"] != 0:
-            util.error(f'Warning place order: {result['retMsg']}', finish=False)
+            util.error(f'Warning place order: {result["retMsg"]}', finish=False)
         order["result"] = result["retMsg"]
         order["orderId"] = result["result"]["orderId"]
         order["current_price"] = self.current_price
@@ -153,7 +153,7 @@ class Bybit:
         except Exception as e:
             util.error(f'Error place order: {e}')
         if result["retCode"] != 0:
-            util.error(f'Warning place order: {result['retMsg']}', finish=False)
+            util.error(f'Warning place order: {result["retMsg"]}', finish=False)
         order["result"] = result["retMsg"]
         order["orderId"] = result["result"]["orderId"]
         order["current_price"] = self.current_price
