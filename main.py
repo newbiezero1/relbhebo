@@ -8,9 +8,9 @@ from bybit import Bybit
 client = DiscordClient(config.discord_token)
 # bheem alerts section
 
-#all_messages = client.fetch_messages(config.bheem_channels["alerts"])
-#new_message = util.check_new_message(all_messages, config.files_list["bheem_alerts"])
-new_message = "SUI canceled @BHEEM ALERT"
+all_messages = client.fetch_messages(config.bheem_channels["alerts"])
+new_message = util.check_new_message(all_messages, config.files_list["bheem_alerts"])
+
 if new_message:
     bheem = BheemParser()
     bheem.parse_alert_message_data(new_message)

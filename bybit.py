@@ -203,6 +203,35 @@ class Bybit:
             report += f'Cancel _{order["orderId"]}_: *{response["retMsg"]}*\n'
         return report
 
+    def close_open_position(self, pair: str) -> str:
+        report = ''
+        # find open position
+        try:
+            result = self.session.get_positions(category="linear",
+                                                  symbol=pair)
+        except Exception as e:
+            util.error(f'Error get position: {e}')
+        if result["retCode"] != 0:
+            util.error(f'Warning get position: {result["retMsg"]}', finish=False)
+
+        if float(result["result"]["list"][0]["size"]) == 0.0:
+            report = f'No {pair} position found'
+            return report
+        size = float(result["result"]["list"][0]["size"])
+        # close position by market order
+        try:
+            result = self.session.place_order(category="linear",
+                                              symbol=pair,
+                                              side='Sell',
+                                              orderType='Market',
+                                              qty=size)
+        except Exception as e:
+            util.error(f'Error place order: {e}')
+        if result["retCode"] != 0:
+            util.error(f'Warning place order: {result["retMsg"]}', finish=False)
+        report = f'Close position _{pair}_: *{result["retMsg"]}*\n'
+        return report
+
     def set_alert_data(self, alert: dict) -> None:
         """Set alert data"""
         self.alert["pair"] = alert["pair"].upper() + "USDT"
@@ -215,5 +244,8 @@ class Bybit:
         # cancel limit order
         if self.alert["action"] == "cancel":
             report = self.cancel_limit_order(self.alert["pair"])
+        # close open position
+        if self.alert["action"] == "close":
+            report = self.close_open_position(self.alert["pair"])
 
         return report
