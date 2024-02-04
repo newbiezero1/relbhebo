@@ -10,6 +10,13 @@ class BheemParser:
             'sl': '',
             'tp': '',
         }
+        self.alert = {
+            'pair': '',
+            'action': '',
+            'value': '',
+        }
+        self.alert_action_ignore = ['filled', 'stopped', 'update']
+        self.alert_action = ['move_sl', 'close', 'cancel']
         return
 
     def find_pair(self, line: str) -> None:
@@ -118,8 +125,30 @@ class BheemParser:
         self.find_sl(line)
         return
 
-    def parse_message_data(self, message: str) -> dict:
-        """parse bheem message as:"""
+    def parse_alert_message_data(self, message: str) -> dict:
+        """parse bheem alerts message"""
+        data = message.split(" ")
+        # pair maybe first and upper
+        if data[0].isupper():
+            self.alert["pair"] = data[0].lower()
+        else:
+            # cant recognize pair
+            return self.alert
+        # action must be second
+        self.alert["action"] = data[1].lower()
+        if self.alert["action"] == "sl":
+            self.alert["action"] = "move_sl"
+        elif self.alert["action"] == "closed":
+            self.alert["action"] = "close"
+        elif self.alert["action"] == "cancelled":
+            self.alert["action"] = "cancel"
+        # value is other
+        self.alert['value'] = data[2].lower()
+
+        return self.alert
+
+    def parse_trade_message_data(self, message: str) -> dict:
+        """parse bheem message"""
         lines = message.split("\n")
         if len(lines) == 1:
             # one line message
@@ -141,3 +170,10 @@ class BheemParser:
         if not self.trade['sl']:
             return False
         return True
+
+    def check_alert_data(self) -> bool:
+        """Check all action i know"""
+        if self.alert["action"] in self.alert_action_ignore or self.alert["action"] in self.alert_action:
+            return True
+        else:
+            return False

@@ -9,14 +9,23 @@ client = DiscordClient(config.discord_token)
 # bheem alerts section
 
 all_messages = client.fetch_messages(config.bheem_channels["alerts"])
-new_messages = client.fetch_messages(all_messages, config.files_list["bheem_alerts"])
+new_message = util.check_new_message(all_messages, config.files_list["bheem_alerts"])
+if new_message:
+    bheem = BheemParser()
+    bheem.parse_alert_message_data(new_message)
+    for user in config.users.values():
+        notifyer = Notifyer(user["tg_chat_id"])
+        if bheem.check_alert_data():
+            pass
+        else:
+            notifyer.broken_message(new_message)
 
 # bheem trade section
 all_messages = client.fetch_messages(config.bheem_channels["trades"])
-new_messages = util.check_new_message(all_messages, config.files_list['bheem_trades'])
-if new_messages:
+new_message = util.check_new_message(all_messages, config.files_list['bheem_trades'])
+if new_message:
     bheem = BheemParser()
-    bheem.parse_message_data(new_messages)
+    bheem.parse_trade_message_data(new_message)
     for user in config.users.values():
         notifyer = Notifyer(user["tg_chat_id"])
 
@@ -36,4 +45,4 @@ if new_messages:
                 for order in bybit.orders:
                     notifyer.place_order(order)
         else:
-            notifyer.broken_message(new_messages)
+            notifyer.broken_message(new_message)
