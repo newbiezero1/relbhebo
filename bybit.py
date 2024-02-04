@@ -203,6 +203,26 @@ class Bybit:
             report += f'Cancel _{order["orderId"]}_: *{response["retMsg"]}*\n'
         return report
 
+    def get_open_positions(self) -> list:
+        """Get all open position"""
+        try:
+            result = self.session.get_positions(category="linear", settleCoin="USDT")
+        except Exception as e:
+            util.error(f'Error get position: {e}')
+        if result["retCode"] != 0:
+            util.error(f'Warning get position: {result["retMsg"]}')
+        return result["result"]["list"]
+
+    def get_open_orders(self) -> list:
+        """Get all open orders"""
+        try:
+            result = self.session.get_open_orders(category="linear", settleCoin="USDT")
+        except Exception as e:
+            util.error(f'Error get orders: {e}')
+        if result["retCode"] != 0:
+            util.error(f'Warning get orders: {result["retMsg"]}')
+        return result["result"]["list"]
+
     def close_open_position(self, pair: str) -> str:
         """Find position and close by market order"""
         report = ''

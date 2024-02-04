@@ -33,7 +33,7 @@ def set_content_file(filename: str, content: str) -> None:
     """write new content to file"""
     try:
         with open(filename, "w") as f:
-            f.write(content)
+            f.write(str(content))
     except FileNotFoundError:
         error("File not found : " + filename)
 
@@ -58,3 +58,9 @@ def check_new_message(messages: list, history_file: str) -> str:
     # save new id in file
     set_content_file(history_file, json.dumps(new_history_messages))
     return new_message
+
+def get_user_by_chat_id(chat_id: int) -> dict:
+    for user in config.users.values():
+        if user["tg_chat_id"] == chat_id:
+            return user
+    return {}

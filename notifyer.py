@@ -17,7 +17,6 @@ class Notifyer:
         parse_mode = "parse_mode=markdown&"
         if not markdown:
             parse_mode = ""
-
         url = f'https://api.telegram.org/bot{self.token}/sendMessage?{parse_mode}chat_id={self.chat_id}{disable_notification}'
         requests.post(url, data={"text": message})  # this sends the message
 
@@ -62,6 +61,32 @@ class Notifyer:
                     Current price: *{order["current_price"]}*
                     Result: *{order["result"]}*'''.replace("    ", "")
         self.send_message(message, silence=True)
+
+    def send_my_active(self, open_positions: list, open_orders: list) -> None:
+        message = f'''*ACTIVE TRADES*\n'''
+        if not open_positions:
+            message += '\nNo open positions\n'
+        else:
+            for position in open_positions:
+                message += f'\n{position["symbol"]} - {position["side"]}'
+                message += f'\nQTY: *{position["size"]}*'
+                message += f'\nEntry: *{position["avgPrice"]}*'
+                message += f'\nSL: *{position["stopLoss"]}*'
+                message += f'\nTP: *{position["takeProfit"]}*\n'
+
+        message += f'\n*LIMIT ORDERS*\n'
+        if not open_orders:
+            message += '\nNo open orders\n'
+        else:
+            for order in open_orders:
+                if float(order["price"]) == 0.0:
+                    continue
+                message += f'\n{order["symbol"]} - {order["side"]}'
+                message += f'\nQTY: *{order["qty"]}*'
+                message += f'\nEntry: *{order["price"]}*'
+                message += f'\nSL: *{order["stopLoss"]}*'
+                message += f'\nTP: *{order["takeProfit"]}*\n'
+        self.send_message(message)
 
     def broken_message(self, message: str) -> None:
         message = f'''*Can't parse message:*\n {message}'''
