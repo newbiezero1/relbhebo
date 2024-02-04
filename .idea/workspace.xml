@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8f94b258-05c8-44d0-a7de-a6f97b26fae3" name="Changes" comment="fix f&quot; -&gt; f'">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bybit.py" beforeDir="false" afterPath="$PROJECT_DIR$/bybit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notifyer.py" beforeDir="false" afterPath="$PROJECT_DIR$/notifyer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +86,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1707005393036</updated>
-      <workItem from="1707005395952" duration="2570000" />
+      <workItem from="1707005395952" duration="2871000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -112,7 +112,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707009896296</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fix f&quot; -&gt; f'">
+      <option name="closed" value="true" />
+      <created>1707010369933</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1707010369933</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

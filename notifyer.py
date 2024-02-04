@@ -41,6 +41,7 @@ class Notifyer:
                     SIDE: *{order["side"]}*
                     TYPE: *{order["orderType"]}*
                     ENTRY: *{order["price"]}*
+                    QTY: *{order["qty"]}*
                     SL: *{order["stopLoss"]}*
                     TP: *{order["takeProfit"]}*
                     ===
