@@ -1,0 +1,24 @@
+#Discord access
+discord_token = '<token>'
+
+#discord bheem chanels for lister
+bheem_channels = {'trades': '<id>',
+                 'alerts': '<id>'}
+
+#stored reading messages
+files_list = {'bheem_trades': 'bheem_trades.json'}
+
+#tg bot key
+tg_api_key = '<api>'
+#users for work
+users = {
+    'admin': {
+        'name': 'AND',
+        'is_admin': True,
+        'tg_chat_id': <chat_id>,
+        'autotrade_enabled': True,
+        'bybit_api_key': '<api_key>',
+        'bybit_api_secret': '<secret_key>',
+        'trade_risk_in_proc': 0.05,
+    }
+}
