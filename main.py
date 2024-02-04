@@ -6,6 +6,10 @@ from notifyer import Notifyer
 from bybit import Bybit
 
 client = DiscordClient(config.discord_token)
+# bheem alerts section
+
+all_messages = client.fetch_messages(config.bheem_channels["alerts"])
+new_messages = client.fetch_messages(all_messages, config.files_list["bheem_alerts"])
 
 # bheem trade section
 all_messages = client.fetch_messages(config.bheem_channels["trades"])
