@@ -113,6 +113,12 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.alert["pair"], 'wif')
         self.assertEqual(self.parser.alert["action"], 'cancel')
 
+    def test_parse_alert_message_cancel_with_other_world(self):
+        new_message = "SUI spot cancelled @BHEEM ALERTT"
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'sui')
+        self.assertEqual(self.parser.alert["action"], 'cancel')
+
     def test_parse_alert_message_close(self):
         new_message = "SUI closed BE @BHEEM ALERTT"
         self.parser.parse_alert_message_data(new_message)
