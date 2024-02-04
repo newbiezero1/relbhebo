@@ -107,6 +107,24 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.alert["action"], 'move_sl')
         self.assertEqual(self.parser.alert["value"], 'be')
 
+    def test_parse_alert_message_cancel(self):
+        new_message = "WIF cancelled @BHEEM ALERT"
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'wif')
+        self.assertEqual(self.parser.alert["action"], 'cancel')
+
+    def test_parse_alert_message_close(self):
+        new_message = "SUI closed BE @BHEEM ALERTT"
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'sui')
+        self.assertEqual(self.parser.alert["action"], 'close')
+
+    def test_parse_alert_message_move_sl(self):
+        new_message = "SUI: Filled ByBit, SL BE for those <@&1202381848127479828>"
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'sui')
+        self.assertEqual(self.parser.alert["action"], 'move_sl')
+        self.assertEqual(self.parser.alert["value"], 'be')
 
 if __name__ == '__main__':
     unittest.main()
