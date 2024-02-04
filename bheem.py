@@ -179,3 +179,9 @@ class BheemParser:
             return True
         else:
             return False
+
+    def check_alert_action(self) -> bool:
+        """Check currecnt action for continue work"""
+        if self.alert["action"] in self.alert_action:
+            return True
+        return False
