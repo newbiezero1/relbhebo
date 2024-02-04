@@ -204,6 +204,7 @@ class Bybit:
         return report
 
     def close_open_position(self, pair: str) -> str:
+        """Find position and close by market order"""
         report = ''
         # find open position
         try:
@@ -232,6 +233,35 @@ class Bybit:
         report = f'Close position _{pair}_: *{result["retMsg"]}*\n'
         return report
 
+    def move_sl_to_be(self, pair: str) -> str:
+        """Find position and close by market order"""
+        report = ''
+        # find open position
+        try:
+            result = self.session.get_positions(category="linear",
+                                                  symbol=pair)
+        except Exception as e:
+            util.error(f'Error get position: {e}')
+        if result["retCode"] != 0:
+            util.error(f'Warning get position: {result["retMsg"]}', finish=False)
+
+        if float(result["result"]["list"][0]["size"]) == 0.0:
+            report = f'No {pair} position found'
+            return report
+        entry = float(result["result"]["list"][0]["avgPrice"])
+        # set stopLoss as entry point
+        try:
+            result = self.session.set_trading_stop(category="linear",
+                                                   positionIdx=0,
+                                                   symbol=pair,
+                                                   stopLoss=entry)
+        except Exception as e:
+            util.error(f'Error move stop: {e}')
+        if result["retCode"] != 0:
+            util.error(f'Warning move stop: {result["retMsg"]}', finish=False)
+        report = f'Move stop for position _{pair}_ to _{entry}_ : *{result["retMsg"]}*\n'
+        return report
+
     def set_alert_data(self, alert: dict) -> None:
         """Set alert data"""
         self.alert["pair"] = alert["pair"].upper() + "USDT"
@@ -247,5 +277,7 @@ class Bybit:
         # close open position
         if self.alert["action"] == "close":
             report = self.close_open_position(self.alert["pair"])
+        if self.alert["action"] == "move_sl":
+            report = self.move_sl_to_be(self.alert["pair"])
 
         return report
