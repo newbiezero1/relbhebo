@@ -52,7 +52,7 @@ class TestBheemParser(unittest.TestCase):
         Entry: 2052.32/1985.78
         SL: 1903.99
         TP: 2415.2'''
-        self.parser.parse_message_data(new_messages)
+        self.parser.parse_trade_message_data(new_messages)
         self.assertEqual(self.parser.trade["pair"], 'eth')
         self.assertEqual(self.parser.trade["side"], 'long')
         self.assertEqual(self.parser.trade["entry"], ['2052.32', '1985.78'])
@@ -64,7 +64,7 @@ class TestBheemParser(unittest.TestCase):
                 Entry: CMP
                 SL: 1903.99
                 TP: 2415.2'''
-        self.parser.parse_message_data(new_messages)
+        self.parser.parse_trade_message_data(new_messages)
         self.assertEqual(self.parser.trade["pair"], 'eth')
         self.assertEqual(self.parser.trade["side"], 'long')
         self.assertEqual(self.parser.trade["entry"], ['cmp'])
@@ -73,7 +73,7 @@ class TestBheemParser(unittest.TestCase):
 
     def test_parse_message_one_line(self):
         new_messages = '''SUI long CMP/1.45 SL: 1.4275 <@&1202381806989754378>'''
-        self.parser.parse_message_data(new_messages)
+        self.parser.parse_trade_message_data(new_messages)
         self.assertEqual(self.parser.trade["pair"], 'sui')
         self.assertEqual(self.parser.trade["side"], 'long')
         self.assertEqual(self.parser.trade["entry"], ['cmp', '1.45'])
@@ -81,7 +81,7 @@ class TestBheemParser(unittest.TestCase):
 
     def test_parse_message_one_line_with_ssl(self):
         new_messages = '''LINK limit 17.382/17.011 SSL: H4 close below 16.696 <@&1202381806989754378>'''
-        self.parser.parse_message_data(new_messages)
+        self.parser.parse_trade_message_data(new_messages)
         self.assertEqual(self.parser.trade["pair"], 'link')
         self.assertEqual(self.parser.trade["side"], 'long')
         self.assertEqual(self.parser.trade["entry"], ['17.382', '17.011'])
@@ -93,12 +93,19 @@ class TestBheemParser(unittest.TestCase):
             SSL: H1 1.393
             TP: TBD
             <@&1202381806989754378>'''
-        self.parser.parse_message_data(new_messages)
+        self.parser.parse_trade_message_data(new_messages)
         self.assertEqual(self.parser.trade["pair"], 'sui')
         self.assertEqual(self.parser.trade["side"], 'long')
         self.assertEqual(self.parser.trade["entry"], ['1.422', '1.410'])
         self.assertEqual(self.parser.trade["sl"], '1.393')
         self.assertEqual(self.parser.trade["tp"], 'tbd')
+
+    def test_parse_alert_message_data(self):
+        new_message = "ICP SL BE (11.683) <@&1202381848127479828>"
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'icp')
+        self.assertEqual(self.parser.alert["action"], 'move_sl')
+        self.assertEqual(self.parser.alert["value"], 'be')
 
 
 if __name__ == '__main__':

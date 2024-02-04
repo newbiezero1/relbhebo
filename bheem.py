@@ -142,6 +142,8 @@ class BheemParser:
             self.alert["action"] = "close"
         elif self.alert["action"] == "cancelled":
             self.alert["action"] = "cancel"
+        elif self.alert["action"] == "canceled":
+            self.alert["action"] = "cancel"
         # value is other
         self.alert['value'] = data[2].lower()
 

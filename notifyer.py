@@ -33,6 +33,20 @@ class Notifyer:
             {origin_message}'''.replace("    ", "")
         self.send_message(message, silence=True)
 
+    def new_alert(self, alert_info: dict, origin_message: str) -> None:
+        message = f'''Parse alert: 
+            PAIR: *{alert_info["pair"]}*
+            ACTION: *{alert_info["action"]}*
+            VALUE: *{alert_info["value"]}*
+            ===
+            Original message:
+            {origin_message}'''.replace("    ", "")
+        self.send_message(message, silence=True)
+
+    def alert_report(self, report: str) -> None:
+        message = f'''*Alert Report*\n{report}'''
+        self.send_message(message, silence=True)
+
     def place_order(self, order: dict) -> None:
         if not order["price"]:
             order["price"] = "market"

@@ -19,6 +19,9 @@ class Bybit:
         self.current_price = 0.0
         self.orders = []
 
+        # alert data
+        self.alert = {}
+
     def get_balance(self) -> float:
         """Get USDT balance"""
         wallet_balance = self.session.get_wallet_balance(accountType="CONTRACT", coin="USDT")
@@ -170,3 +173,47 @@ class Bybit:
             else:
                 order = self.place_limit_order(entry, sl_percent)
                 self.orders.append(order)
+
+    def cancel_limit_order(self, pair: str) -> str:
+        """Cancel limit order by pair"""
+        # find order id
+        try:
+            result = self.session.get_open_orders(category="linear",
+                                                symbol=pair,
+                                                openOnly=0)
+        except Exception as e:
+            util.error(f'Error get orders: {e}')
+        if result["retCode"] != 0:
+            util.error(f'Warning get order: {result["retMsg"]}', finish=False)
+
+        report = ''
+        if not result["result"]["list"]:
+            report = f'No {pair} orders found'
+            return report
+
+        for order in result["result"]["list"]:
+            try:
+                response = self.session.cancel_order(category="linear",
+                                          symbol=pair,
+                                          orderId=order["orderId"])
+            except Exception as e:
+                util.error(f'Error cancel orders: {e}')
+            if result["retCode"] != 0:
+                util.error(f'Warning cancel order: {response["retMsg"]}', finish=False)
+            report += f'Cancel _{order["orderId"]}_: *{response["retMsg"]}*\n'
+        return report
+
+    def set_alert_data(self, alert: dict) -> None:
+        """Set alert data"""
+        self.alert["pair"] = alert["pair"].upper() + "USDT"
+        self.alert["action"] = alert["action"]
+        self.alert["value"] = alert["value"]
+
+    def update_trade(self) -> str:
+        """Update current position or limits"""
+        report = ''
+        # cancel limit order
+        if self.alert["action"] == "cancel":
+            report = self.cancel_limit_order(self.alert["pair"])
+
+        return report
