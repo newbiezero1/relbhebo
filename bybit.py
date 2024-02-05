@@ -12,6 +12,7 @@ class Bybit:
         self.risk_percent = user["trade_risk_in_proc"]
         self.session = HTTP(api_key=user["bybit_api_key"], api_secret=user["bybit_api_secret"])
         self.api_error_flag = False
+        self.api_error_msg = ''
         self.balance = self.get_balance()
 
         # trade data
@@ -132,9 +133,13 @@ class Bybit:
                                               stopLoss=order["stopLoss"],
                                               takeProfit=order["takeProfit"])
         except Exception as e:
-            util.error(f'Error place order: {e}', finish=False)
+            self.api_error_msg = e
+            self.api_error_flag = True
+            return {}
         if result["retCode"] != 0:
-            util.error(f'Warning place order: {result["retMsg"]}', finish=False)
+            self.api_error_msg = result["retMsg"]
+            self.api_error_flag = True
+            return {}
         order["result"] = result["retMsg"]
         order["orderId"] = result["result"]["orderId"]
         order["current_price"] = self.current_price
@@ -164,9 +169,13 @@ class Bybit:
                                               stopLoss=order["stopLoss"],
                                               takeProfit=order["takeProfit"])
         except Exception as e:
-            util.error(f'Error place order: {e}', finish=False)
+            self.api_error_msg = e
+            self.api_error_flag = True
+            return {}
         if result["retCode"] != 0:
-            util.error(f'Warning place order: {result["retMsg"]}', finish=False)
+            self.api_error_msg = result["retMsg"]
+            self.api_error_flag = True
+            return {}
         order["result"] = result["retMsg"]
         order["orderId"] = result["result"]["orderId"]
         order["current_price"] = self.current_price
@@ -192,9 +201,13 @@ class Bybit:
                                                 symbol=pair,
                                                 openOnly=0)
         except Exception as e:
-            util.error(f'Error get orders: {e}', finish=False)
+            self.api_error_flag = True
+            self.api_error_msg = e
+            return ''
         if result["retCode"] != 0:
-            util.error(f'Warning get order: {result["retMsg"]}', finish=False)
+            self.api_error_flag = True
+            self.api_error_msg = result["retMsg"]
+            return ''
 
         report = ''
         if not result["result"]["list"]:
@@ -207,9 +220,13 @@ class Bybit:
                                           symbol=pair,
                                           orderId=order["orderId"])
             except Exception as e:
-                util.error(f'Error cancel orders: {e}', finish=False)
+                self.api_error_flag = True
+                self.api_error_msg = e
+                return ''
             if result["retCode"] != 0:
-                util.error(f'Warning cancel order: {response["retMsg"]}', finish=False)
+                self.api_error_flag = True
+                self.api_error_msg = response["retMsg"]
+                return ''
             report += f'Cancel _{order["orderId"]}_: *{response["retMsg"]}*\n'
         return report
 
@@ -241,9 +258,13 @@ class Bybit:
             result = self.session.get_positions(category="linear",
                                                   symbol=pair)
         except Exception as e:
-            util.error(f'Error get position: {e}')
+            self.api_error_flag = True
+            self.api_error_msg = e
+            return ''
         if result["retCode"] != 0:
-            util.error(f'Warning get position: {result["retMsg"]}', finish=False)
+            self.api_error_flag = True
+            self.api_error_msg = result["retMsg"]
+            return ''
 
         if float(result["result"]["list"][0]["size"]) == 0.0:
             report = f'No {pair} position found'
@@ -258,9 +279,13 @@ class Bybit:
                                               orderType='Market',
                                               qty=size)
         except Exception as e:
-            util.error(f'Error place order: {e}', finish=False)
+            self.api_error_flag = True
+            self.api_error_msg = e
+            return ''
         if result["retCode"] != 0:
-            util.error(f'Warning place order: {result["retMsg"]}', finish=False)
+            self.api_error_flag = True
+            self.api_error_msg = result["retMsg"]
+            return ''
         report = f'Close position _{pair}_: *{result["retMsg"]}*\n'
         return report
 
@@ -272,9 +297,13 @@ class Bybit:
             result = self.session.get_positions(category="linear",
                                                   symbol=pair)
         except Exception as e:
-            util.error(f'Error get position: {e}')
+            self.api_error_flag = True
+            self.api_error_msg = e
+            return ''
         if result["retCode"] != 0:
-            util.error(f'Warning get position: {result["retMsg"]}', finish=False)
+            self.api_error_flag = True
+            self.api_error_msg = result["retMsg"]
+            return ''
 
         if float(result["result"]["list"][0]["size"]) == 0.0:
             report = f'No {pair} position found'
@@ -287,9 +316,13 @@ class Bybit:
                                                    symbol=pair,
                                                    stopLoss=entry)
         except Exception as e:
-            util.error(f'Error move stop: {e}', finish=False)
+            self.api_error_flag = True
+            self.api_error_msg = e
+            return ''
         if result["retCode"] != 0:
-            util.error(f'Warning move stop: {result["retMsg"]}', finish=False)
+            self.api_error_flag = True
+            self.api_error_msg = result["retMsg"]
+            return ''
         report = f'Move stop for position _{pair}_ to _{entry}_ : *{result["retMsg"]}*\n'
         return report
 

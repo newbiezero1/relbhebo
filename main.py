@@ -7,7 +7,6 @@ from bybit import Bybit
 
 client = DiscordClient(config.discord_token)
 # bheem alerts section
-
 all_messages = client.fetch_messages(config.bheem_channels["alerts"])
 new_message = util.check_new_message(all_messages, config.files_list["bheem_alerts"])
 if new_message:
@@ -26,6 +25,9 @@ if new_message:
                     continue
                 bybit.set_alert_data(bheem.alert)
                 report = bybit.update_trade()
+                if bybit.api_error_flag:
+                    util.error(f'Error: {bybit.api_error_msg}', finish=False)
+                    continue
                 notifyer.alert_report(report)
         else:
             notifyer.broken_message(new_message)
@@ -52,6 +54,9 @@ if new_message:
                     continue
                 bybit.set_trade_data(bheem.trade)
                 bybit.make_trade()
+                if bybit.api_error_flag:
+                    util.error(f'Error: {bybit.api_error_msg}', finish=False)
+                    continue
                 for order in bybit.orders:
                     notifyer.place_order(order)
         else:
