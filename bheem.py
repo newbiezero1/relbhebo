@@ -150,6 +150,9 @@ class BheemParser:
             if message.lower().find("sl be") >= 0:
                 self.alert["action"] = "move_sl"
                 self.alert["value"] = "be"
+            if message.lower().find("closed") >= 0:
+                self.alert["action"] = "close"
+                self.alert["value"] = "be"
         else:
             if message.lower().find("cancelled") >= 0:
                 self.alert["action"] = "cancel"
