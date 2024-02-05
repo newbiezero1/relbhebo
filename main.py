@@ -1,3 +1,5 @@
+import json
+
 import config
 from discord_client import DiscordClient
 from bheem import BheemParser
@@ -41,7 +43,6 @@ def check_trades():
     if new_message:
         bheem = BheemParser()
         bheem.parse_trade_message_data(new_message)
-        print(bheem.trade)
         for user in config.users.values():
             notifyer = Notifyer(user["tg_chat_id"])
 
@@ -79,6 +80,49 @@ def check_rekt_updates():
             notifyer = Notifyer(user["tg_chat_id"])
             notifyer.send_message(new_message)
 
+def check_lost_sl_trades():
+    """Fetch saved trades and check bheem active branch"""
+    saved_trades = json.loads(util.get_content_file(config.files_list['lost_sl_trades']).strip())
+    message_active = client.fetch_messages(config.bheem_channels["active"])[0]["content"].lower()
+    new_saved_trades = []
+    for trade in saved_trades:
+        order = BheemParser.find_trade_data_in_limit(trade['pair'], message_active)
+        if not order:
+            new_saved_trades.append(trade)
+            continue
+        bheem = BheemParser()
+        bheem.parse_trade_message_data(order)
+        bheem.trade['entry'] = trade['entry']
+        for user in config.users.values():
+            notifyer = Notifyer(user["tg_chat_id"])
+
+            if bheem.check_trade_data():
+                # check sl in trade
+                if not bheem.trade["sl"]:
+                    util.save_lost_sl_trade(bheem.trade)
+                    notifyer.lost_sl(bheem.trade, order)
+                    continue
+                # notify in tg about new message
+                notifyer.new_saved_trade(bheem.trade, order)
+                # make trade if this user enable autotrade
+                if user["autotrade_enabled"]:
+                    try:
+                        bybit = Bybit(user)
+                    except Exception as e:
+                        util.error(f'can\'t connect to bybit api, user: *{user["name"]}*', finish=False)
+                        continue
+                    bybit.set_trade_data(bheem.trade)
+                    bybit.make_trade()
+                    if bybit.api_error_flag:
+                        util.error(f'Error: {bybit.api_error_msg}', finish=False)
+                        continue
+                    for order in bybit.orders:
+                        notifyer.place_order(order)
+            else:
+                notifyer.broken_message(order)
+    # save new trades
+    util.set_content_file(config.files_list['lost_sl_trades'], json.dumps(new_saved_trades))
+
 
 client = DiscordClient(config.discord_token)
 # bheem alerts section
@@ -87,3 +131,5 @@ check_alert()
 check_trades()
 # rekt trades section
 check_rekt_updates()
+# check lost sl trades
+check_lost_sl_trades()

@@ -32,6 +32,18 @@ class Notifyer:
             {origin_message}'''.replace("    ", "")
         self.send_message(message, silence=True)
 
+    def new_saved_trade(self, trade_info: dict, origin_message: str) -> None:
+        message = f'''parsed full infor saved trade: 
+            PAIR: *{trade_info["pair"]}*
+            SIDE: *{trade_info["side"]}*
+            ENTRY: *{trade_info["entry"]}*
+            SL: *{trade_info["sl"]}*
+            TP: *{trade_info["tp"]}*
+            ===
+            Original message from active branch:
+            {origin_message}'''.replace("    ", "")
+        self.send_message(message, silence=True)
+
     def lost_sl(self, trade_info: dict, origin_message: str) -> None:
         message = f'''Parse trade without SL and saved: 
             PAIR: *{trade_info["pair"]}*
