@@ -7,7 +7,6 @@ from bybit import Bybit
 
 client = DiscordClient(config.discord_token)
 # bheem alerts section
-
 all_messages = client.fetch_messages(config.bheem_channels["alerts"])
 new_message = util.check_new_message(all_messages, config.files_list["bheem_alerts"])
 if new_message:
@@ -39,13 +38,18 @@ new_message = util.check_new_message(all_messages, config.files_list['bheem_trad
 if new_message:
     bheem = BheemParser()
     bheem.parse_trade_message_data(new_message)
+    print(bheem.trade)
     for user in config.users.values():
         notifyer = Notifyer(user["tg_chat_id"])
 
         if bheem.check_trade_data():
+            # check sl in trade
+            if not bheem.trade["sl"]:
+                util.save_lost_sl_trade(bheem.trade)
+                notifyer.lost_sl(bheem.trade, new_message)
+                continue
             # notify in tg about new message
             notifyer.new_trade(bheem.trade, new_message)
-
             # make trade if this user enable autotrade
             if user["autotrade_enabled"]:
                 try:

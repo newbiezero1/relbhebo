@@ -59,7 +59,15 @@ def check_new_message(messages: list, history_file: str) -> str:
     set_content_file(history_file, json.dumps(new_history_messages))
     return new_message
 
+
+def save_lost_sl_trade(trade: dict) -> None:
+    """Save broke trade in file for later use"""
+    trades = json.loads(get_content_file(config.files_list['lost_sl_trades']))
+    trades.append(trade)
+    set_content_file(config.files_list['lost_sl_trades'], json.dumps(trades))
+
 def get_user_by_chat_id(chat_id: int) -> dict:
+    """Return user by id"""
     for user in config.users.values():
         if user["tg_chat_id"] == chat_id:
             return user

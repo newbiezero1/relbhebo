@@ -176,8 +176,6 @@ class BheemParser:
             return False
         if not self.trade['entry']:
             return False
-        if not self.trade['sl']:
-            return False
         return True
 
     def check_alert_data(self) -> bool:
