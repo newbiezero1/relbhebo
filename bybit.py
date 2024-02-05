@@ -248,6 +248,7 @@ class Bybit:
     def close_open_position(self, pair: str) -> str:
         """Find position and close by market order"""
         report = ''
+        self.trade['pair'] = pair
         # find open position
         try:
             result = self.session.get_positions(category="linear",
