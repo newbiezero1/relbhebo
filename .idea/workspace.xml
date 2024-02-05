@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f94b258-05c8-44d0-a7de-a6f97b26fae3" name="Changes" comment="fix comment">
-      <change afterPath="$PROJECT_DIR$/files/rekt_trades.json.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="8f94b258-05c8-44d0-a7de-a6f97b26fae3" name="Changes" comment="add functional for lost sl functions and reorg files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bheem.py" beforeDir="false" afterPath="$PROJECT_DIR$/bheem.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bheem_alerts.json.example" beforeDir="false" afterPath="$PROJECT_DIR$/files/bheem_alerts.json.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bheem_trades.json.example" beforeDir="false" afterPath="$PROJECT_DIR$/files/bheem_trades.json.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notifyer.py" beforeDir="false" afterPath="$PROJECT_DIR$/notifyer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rekt_trades.json.example" beforeDir="false" afterPath="$PROJECT_DIR$/files/lost_sl_trades.json.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tg_bot_last_update.txt" beforeDir="false" afterPath="$PROJECT_DIR$/files/tg_bot_last_update.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/util.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +105,7 @@
       <option name="presentableId" value="Default" />
       <updated>1707005393036</updated>
       <workItem from="1707005395952" duration="17674000" />
-      <workItem from="1707108893143" duration="2249000" />
+      <workItem from="1707108893143" duration="2662000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -332,7 +323,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707109505726</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="add functional for lost sl functions and reorg files">
+      <option name="closed" value="true" />
+      <created>1707149469399</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1707149469399</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -350,7 +349,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="init" />
     <MESSAGE value="pep8" />
     <MESSAGE value="fix f&quot; -&gt; f'" />
     <MESSAGE value="add qty to msg" />
@@ -375,7 +373,8 @@
     <MESSAGE value="add error function" />
     <MESSAGE value="add rekt relay" />
     <MESSAGE value="fix comment" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix comment" />
+    <MESSAGE value="add functional for lost sl functions and reorg files" />
+    <option name="LAST_COMMIT_MESSAGE" value="add functional for lost sl functions and reorg files" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/bheem$notifyer.coverage" NAME="notifyer Coverage Results" MODIFIED="1707021315320" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

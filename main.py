@@ -5,72 +5,82 @@ import util
 from notifyer import Notifyer
 from bybit import Bybit
 
+def check_alert():
+    """Check new alerts and action"""
+    all_messages = client.fetch_messages(config.bheem_channels["alerts"])
+    new_message = util.check_new_message(all_messages, config.files_list["bheem_alerts"])
+    if new_message:
+        bheem = BheemParser()
+        bheem.parse_alert_message_data(new_message)
+        for user in config.users.values():
+            notifyer = Notifyer(user["tg_chat_id"])
+            if bheem.check_alert_data():
+                notifyer.new_alert(bheem.alert, new_message)
+                # update trade
+                if user["autotrade_enabled"] and bheem.check_alert_action():
+                    try:
+                        bybit = Bybit(user)
+                    except Exception as e:
+                        util.error(f'can\'t connect to bybit api, user: *{user["name"]}*', finish=False)
+                        continue
+                    bybit.set_alert_data(bheem.alert)
+                    report = bybit.update_trade()
+                    if bybit.api_error_flag:
+                        util.error(f'Error: {bybit.api_error_msg}', finish=False)
+                        continue
+                    notifyer.alert_report(report)
+            else:
+                notifyer.broken_message(new_message)
+
+def check_trades():
+    """Check new trades and make trade"""
+    all_messages = client.fetch_messages(config.bheem_channels["trades"])
+    new_message = util.check_new_message(all_messages, config.files_list['bheem_trades'])
+    if new_message:
+        bheem = BheemParser()
+        bheem.parse_trade_message_data(new_message)
+        print(bheem.trade)
+        for user in config.users.values():
+            notifyer = Notifyer(user["tg_chat_id"])
+
+            if bheem.check_trade_data():
+                # check sl in trade
+                if not bheem.trade["sl"]:
+                    util.save_lost_sl_trade(bheem.trade)
+                    notifyer.lost_sl(bheem.trade, new_message)
+                    continue
+                # notify in tg about new message
+                notifyer.new_trade(bheem.trade, new_message)
+                # make trade if this user enable autotrade
+                if user["autotrade_enabled"]:
+                    try:
+                        bybit = Bybit(user)
+                    except Exception as e:
+                        util.error(f'can\'t connect to bybit api, user: *{user["name"]}*', finish=False)
+                        continue
+                    bybit.set_trade_data(bheem.trade)
+                    bybit.make_trade()
+                    if bybit.api_error_flag:
+                        util.error(f'Error: {bybit.api_error_msg}', finish=False)
+                        continue
+                    for order in bybit.orders:
+                        notifyer.place_order(order)
+            else:
+                notifyer.broken_message(new_message)
+
+def check_rekt_updates():
+    all_messages = client.fetch_messages(config.rekt_channels["trades"])
+    new_message = util.check_new_message(all_messages, config.files_list['rekt_trades'])
+    if new_message:
+        for user in config.users.values():
+            notifyer = Notifyer(user["tg_chat_id"])
+            notifyer.send_message(new_message)
+
+
 client = DiscordClient(config.discord_token)
 # bheem alerts section
-all_messages = client.fetch_messages(config.bheem_channels["alerts"])
-new_message = util.check_new_message(all_messages, config.files_list["bheem_alerts"])
-if new_message:
-    bheem = BheemParser()
-    bheem.parse_alert_message_data(new_message)
-    for user in config.users.values():
-        notifyer = Notifyer(user["tg_chat_id"])
-        if bheem.check_alert_data():
-            notifyer.new_alert(bheem.alert, new_message)
-            # update trade
-            if user["autotrade_enabled"] and bheem.check_alert_action():
-                try:
-                    bybit = Bybit(user)
-                except Exception as e:
-                    util.error(f'can\'t connect to bybit api, user: *{user["name"]}*', finish=False)
-                    continue
-                bybit.set_alert_data(bheem.alert)
-                report = bybit.update_trade()
-                if bybit.api_error_flag:
-                    util.error(f'Error: {bybit.api_error_msg}', finish=False)
-                    continue
-                notifyer.alert_report(report)
-        else:
-            notifyer.broken_message(new_message)
-
+check_alert()
 # bheem trade section
-all_messages = client.fetch_messages(config.bheem_channels["trades"])
-new_message = util.check_new_message(all_messages, config.files_list['bheem_trades'])
-if new_message:
-    bheem = BheemParser()
-    bheem.parse_trade_message_data(new_message)
-    print(bheem.trade)
-    for user in config.users.values():
-        notifyer = Notifyer(user["tg_chat_id"])
-
-        if bheem.check_trade_data():
-            # check sl in trade
-            if not bheem.trade["sl"]:
-                util.save_lost_sl_trade(bheem.trade)
-                notifyer.lost_sl(bheem.trade, new_message)
-                continue
-            # notify in tg about new message
-            notifyer.new_trade(bheem.trade, new_message)
-            # make trade if this user enable autotrade
-            if user["autotrade_enabled"]:
-                try:
-                    bybit = Bybit(user)
-                except Exception as e:
-                    util.error(f'can\'t connect to bybit api, user: *{user["name"]}*', finish=False)
-                    continue
-                bybit.set_trade_data(bheem.trade)
-                bybit.make_trade()
-                if bybit.api_error_flag:
-                    util.error(f'Error: {bybit.api_error_msg}', finish=False)
-                    continue
-                for order in bybit.orders:
-                    notifyer.place_order(order)
-        else:
-            notifyer.broken_message(new_message)
-
+check_trades()
 # rekt trades section
-all_messages = client.fetch_messages(config.rekt_channels["trades"])
-new_message = util.check_new_message(all_messages, config.files_list['rekt_trades'])
-if new_message:
-    for user in config.users.values():
-        notifyer = Notifyer(user["tg_chat_id"])
-        notifyer.send_message(new_message)
+check_rekt_updates()
