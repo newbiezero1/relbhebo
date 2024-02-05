@@ -7,6 +7,7 @@ from bybit import Bybit
 
 client = DiscordClient(config.discord_token)
 # bheem alerts section
+"""
 all_messages = client.fetch_messages(config.bheem_channels["alerts"])
 new_message = util.check_new_message(all_messages, config.files_list["bheem_alerts"])
 if new_message:
@@ -61,3 +62,11 @@ if new_message:
                     notifyer.place_order(order)
         else:
             notifyer.broken_message(new_message)
+"""
+# rekt trades section
+all_messages = client.fetch_messages(config.rekt_channels["trades"])
+new_message = util.check_new_message(all_messages, config.files_list['rekt_trades'])
+if new_message:
+    for user in config.users.values():
+        notifyer = Notifyer(user["tg_chat_id"])
+        notifyer.send_message(new_message)
