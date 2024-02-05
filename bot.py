@@ -1,4 +1,5 @@
 import sys
+import json
 
 import requests
 
@@ -52,3 +53,6 @@ elif cmd == "/ahmed_active":
     client = DiscordClient(config.discord_token)
     message = client.fetch_messages(config.bheem_channels["active"])
     notifyer.send_message(message[0]["content"])
+elif cmd == "/saved_orders":
+    saved_trades = json.loads(util.get_content_file(config.files_list['lost_sl_trades']).strip())
+    notifyer.saved_orders(saved_trades)

@@ -110,6 +110,16 @@ class Notifyer:
                 message += f'\nTP: *{order["takeProfit"]}*\n'
         self.send_message(message)
 
+    def saved_orders(self, orders: list) -> None:
+        message = f'''*SAVED ORDERS*\n'''
+        if not orders:
+            message += '\nNo saved orders\n'
+        else:
+            for order in orders:
+                message += f'\n{order["pair"]}usdt'
+                message += f'\nEntry: *{order["entry"]}*\n'
+        self.send_message(message)
+
     def broken_message(self, message: str) -> None:
         message = f'''*Can't parse message:*\n {message}'''
         self.send_message(message)
