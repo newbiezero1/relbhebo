@@ -5,6 +5,7 @@ import util
 from notifyer import Notifyer
 from bybit import Bybit
 
+
 def check_alert():
     """Check new alerts and action"""
     all_messages = client.fetch_messages(config.bheem_channels["alerts"])
@@ -31,6 +32,7 @@ def check_alert():
                     notifyer.alert_report(report)
             else:
                 notifyer.broken_message(new_message)
+
 
 def check_trades():
     """Check new trades and make trade"""
@@ -67,6 +69,7 @@ def check_trades():
                         notifyer.place_order(order)
             else:
                 notifyer.broken_message(new_message)
+
 
 def check_rekt_updates():
     all_messages = client.fetch_messages(config.rekt_channels["trades"])
