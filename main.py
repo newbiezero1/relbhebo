@@ -90,6 +90,7 @@ def check_lost_sl_trades():
         order = BheemParser.find_trade_data_in_limit(trade['pair'], message_active)
         if not order:
             new_saved_trades.append(trade)
+            util.set_content_file(config.files_list['lost_sl_trades'], json.dumps(new_saved_trades))
             continue
         bheem = BheemParser()
         bheem.parse_trade_message_data(order)
