@@ -1,6 +1,7 @@
 import unittest
 from bheem import BheemParser
 
+
 class TestBheemParser(unittest.TestCase):
     def setUp(self):
         self.parser = BheemParser()
@@ -32,7 +33,7 @@ class TestBheemParser(unittest.TestCase):
     def test_find_in_many_line(self):
         message = "**ETH/SPOT - LONG**\nEntry: 2052.32/1985.78\nSL: 1903.9\nTP: 2415.2\n"
         self.parser.find_in_many_line(message.split("\n"))
-        self.assertEqual(self.parser.trade["pair"],"eth")
+        self.assertEqual(self.parser.trade["pair"], "eth")
         self.assertEqual(self.parser.trade["side"], "long")
         self.assertEqual(self.parser.trade["entry"], ["2052.32", "1985.78"])
         self.assertEqual(self.parser.trade["sl"], "1903.9")
@@ -131,6 +132,7 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.alert["pair"], 'sui')
         self.assertEqual(self.parser.alert["action"], 'move_sl')
         self.assertEqual(self.parser.alert["value"], 'be')
+
 
 if __name__ == '__main__':
     unittest.main()

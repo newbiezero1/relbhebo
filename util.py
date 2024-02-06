@@ -66,6 +66,7 @@ def save_lost_sl_trade(trade: dict) -> None:
     trades.append(trade)
     set_content_file(config.files_list['lost_sl_trades'], json.dumps(trades))
 
+
 def get_user_by_chat_id(chat_id: int) -> dict:
     """Return user by id"""
     for user in config.users.values():

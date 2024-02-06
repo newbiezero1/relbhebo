@@ -9,6 +9,7 @@ from notifyer import Notifyer
 from bybit import Bybit
 from discord_client import DiscordClient
 
+
 def get_last_command() -> dict:
     """Get updates and check id in saved file"""
     response = requests.get(f'https://api.telegram.org/bot{config.tg_api_key}/getUpdates?offset=-1')
@@ -26,7 +27,7 @@ message = get_last_command()
 if not message:
     sys.exit()
 # get users chat id
-allowed_chat_id=[]
+allowed_chat_id = []
 for user in config.users.values():
     allowed_chat_id.append(user["tg_chat_id"])
 
@@ -44,11 +45,11 @@ notifyer = Notifyer(user["tg_chat_id"])
 if cmd == "/my_active":
     try:
         bybit = Bybit(user)
+        open_positions = bybit.get_open_positions()
+        open_orders = bybit.get_open_orders()
+        notifyer.send_my_active(open_positions, open_orders)
     except Exception as e:
         util.error(f'can\'t connect to bybit api, user: *{user["name"]}*')
-    open_positions = bybit.get_open_positions()
-    open_orders = bybit.get_open_orders()
-    notifyer.send_my_active(open_positions, open_orders)
 elif cmd == "/ahmed_active":
     client = DiscordClient(config.discord_token)
     message = client.fetch_messages(config.bheem_channels["active"])

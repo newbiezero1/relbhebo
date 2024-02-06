@@ -81,6 +81,7 @@ def check_rekt_updates():
             notifyer = Notifyer(user["tg_chat_id"])
             notifyer.send_message(new_message)
 
+
 def check_lost_sl_trades():
     """Fetch saved trades and check bheem active branch"""
     saved_trades = json.loads(util.get_content_file(config.files_list['lost_sl_trades']).strip())

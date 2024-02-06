@@ -10,10 +10,11 @@ bheem_channels = {'trades': '<id>>',
 rekt_channels = {'trades': '<id>', }
 
 # stored reading messages
-files_list = {'bheem_trades': 'bheem_trades.json',
-              'bheem_alerts': 'bheem_alerts.json',
-              'tg_bot_message': 'tg_bot_last_update.txt',
-              'rekt_trades': 'rekt_trades.json',
+files_list = {'bheem_trades': 'files/bheem_trades.json',
+              'bheem_alerts': 'files/bheem_alerts.json',
+              'tg_bot_message': 'files/tg_bot_last_update.txt',
+              'rekt_trades': 'files/rekt_trades.json',
+              'lost_sl_trades': 'files/lost_sl_trades.json',
               }
 
 # tg bot key
@@ -31,4 +32,4 @@ users = {
     },
 }
 
-tg_bot_cmd_list = ["/my_active", "/ahmed_active"]
+tg_bot_cmd_list = ["/my_active", "/ahmed_active", "/saved_orders", ]

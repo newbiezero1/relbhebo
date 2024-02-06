@@ -197,8 +197,8 @@ class Bybit:
         # find order id
         try:
             result = self.session.get_open_orders(category="linear",
-                                                symbol=pair,
-                                                openOnly=0)
+                                                  symbol=pair,
+                                                  openOnly=0)
         except Exception as e:
             self.error(e)
             return ''
@@ -214,8 +214,8 @@ class Bybit:
         for order in result["result"]["list"]:
             try:
                 response = self.session.cancel_order(category="linear",
-                                          symbol=pair,
-                                          orderId=order["orderId"])
+                                                     symbol=pair,
+                                                     orderId=order["orderId"])
             except Exception as e:
                 self.error(e)
                 return ''
@@ -252,7 +252,7 @@ class Bybit:
         # find open position
         try:
             result = self.session.get_positions(category="linear",
-                                                  symbol=pair)
+                                                symbol=pair)
         except Exception as e:
             self.error(e)
             return ''
@@ -287,7 +287,7 @@ class Bybit:
         # find open position
         try:
             result = self.session.get_positions(category="linear",
-                                                  symbol=pair)
+                                                symbol=pair)
         except Exception as e:
             self.error(e)
             return ''
