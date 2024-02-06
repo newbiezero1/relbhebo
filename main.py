@@ -76,6 +76,7 @@ def check_rekt_updates():
     all_messages = client.fetch_messages(config.rekt_channels["trades"])
     new_message = util.check_new_message(all_messages, config.files_list['rekt_trades'])
     if new_message:
+        new_message = '*REKT:*\n' + new_message
         for user in config.users.values():
             notifyer = Notifyer(user["tg_chat_id"])
             notifyer.send_message(new_message)
