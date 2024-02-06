@@ -38,11 +38,17 @@ def check_alert():
 
 def check_trades():
     """Check new trades and make trade"""
-    all_messages = client.fetch_messages(config.bheem_channels["trades"])
-    new_message = util.check_new_message(all_messages, config.files_list['bheem_trades'])
+    #all_messages = client.fetch_messages(config.bheem_channels["trades"])
+    #new_message = util.check_new_message(all_messages, config.files_list['bheem_trades'])
+    new_message = ''' RNDR - Long (0.5R)
+Entry: 3.9650
+SL: 3.740
+TP: 4.3873
+
+<@&1202381806989754378>'''
     if new_message:
         bheem = BheemParser()
-        bheem.parse_trade_message_data(new_message)
+        bheem.parse_trade_message_data(new_message.strip())
         for user in config.users.values():
             notifyer = Notifyer(user["tg_chat_id"])
 

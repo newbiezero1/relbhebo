@@ -183,7 +183,10 @@ class Bybit:
     def make_trade(self) -> None:
         """Make a trade"""
         # calculate sl per entry
-        sl_percent = self.risk_percent / len(self.trade["entry"])
+        if len(self.trade['entry']) == 1:
+            sl_percent = self.risk_percent / 2
+        else:
+            sl_percent = self.risk_percent / len(self.trade["entry"])
         for entry in self.trade["entry"]:
             if str(entry) == "cmp":
                 order = self.place_market_order(sl_percent)

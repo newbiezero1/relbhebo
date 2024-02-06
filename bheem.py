@@ -22,10 +22,14 @@ class BheemParser:
     def find_pair(self, line: str) -> None:
         """find pair in line and save to data"""
         """example: **ETH/SPOT - LONG**"""
+        """example: RNDR - Long (0.5R)"""
         if line.lower().find("spot") > 0 or line.lower().find("perp") > 0:
             data = line.split("/")
             self.trade["pair"] = data[0].replace('*', '').lower()
             return
+        if line.lower().find('- long'):
+            data = line.split(" ")
+            self.trade["pair"] = data[0].lower()
 
     def find_side(self, line: str) -> None:
         """find side in line and save to data"""
