@@ -139,7 +139,10 @@ class BheemParser:
         # action must be second
         self.alert["action"] = data[1].lower()
         if self.alert["action"] == "sl":
-            self.alert["action"] = "move_sl"
+            if message.lower().find("sl updated to H"):
+                self.alert["action"] = 'update'
+            else:
+                self.alert["action"] = "move_sl"
         elif self.alert["action"] == "closed":
             self.alert["action"] = "close"
         elif self.alert["action"] == "cancelled":
