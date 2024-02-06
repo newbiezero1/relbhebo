@@ -145,5 +145,6 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.alert["pair"], 'sei')
         self.assertEqual(self.parser.alert["action"], 'update')
 
+
 if __name__ == '__main__':
     unittest.main()
