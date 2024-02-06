@@ -126,6 +126,12 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.alert["pair"], 'sui')
         self.assertEqual(self.parser.alert["action"], 'close')
 
+    def test_parse_alert_message_filled_with_close(self):
+        new_message = "BTC filled 42440, closed at 42420"
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'btc')
+        self.assertEqual(self.parser.alert["action"], 'close')
+
     def test_parse_alert_message_move_sl(self):
         new_message = "SUI: Filled ByBit, SL BE for those <@&1202381848127479828>"
         self.parser.parse_alert_message_data(new_message)
@@ -133,6 +139,11 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.alert["action"], 'move_sl')
         self.assertEqual(self.parser.alert["value"], 'be')
 
+    def test_parse_alert_message_update_with_sl(self):
+        new_message = "SEI: SL updated to H4 SSL @BHEEM ALERT"
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'sei')
+        self.assertEqual(self.parser.alert["action"], 'update')
 
 if __name__ == '__main__':
     unittest.main()
