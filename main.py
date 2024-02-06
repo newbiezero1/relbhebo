@@ -12,7 +12,6 @@ def check_alert():
     """Check new alerts and action"""
     all_messages = client.fetch_messages(config.bheem_channels["alerts"])
     new_message = util.check_new_message(all_messages, config.files_list["bheem_alerts"])
-    new_message = '''rndr canceled'''
     if new_message:
         bheem = BheemParser()
         bheem.parse_alert_message_data(new_message)
@@ -39,8 +38,8 @@ def check_alert():
 
 def check_trades():
     """Check new trades and make trade"""
-    #all_messages = client.fetch_messages(config.bheem_channels["trades"])
-    #new_message = util.check_new_message(all_messages, config.files_list['bheem_trades'])
+    all_messages = client.fetch_messages(config.bheem_channels["trades"])
+    new_message = util.check_new_message(all_messages, config.files_list['bheem_trades'])
     if new_message:
         bheem = BheemParser()
         bheem.parse_trade_message_data(new_message.strip())
@@ -133,7 +132,7 @@ client = DiscordClient(config.discord_token)
 # bheem alerts section
 check_alert()
 # bheem trade section
-#check_trades()
+check_trades()
 # rekt trades section
 check_rekt_updates()
 # check lost sl trades
