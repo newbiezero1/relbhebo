@@ -9,6 +9,7 @@ class BheemParser:
             'entry': [],
             'sl': '',
             'tp': '',
+            'risk': 0.5,
         }
         self.alert = {
             'pair': '',
@@ -18,6 +19,14 @@ class BheemParser:
         self.alert_action_ignore = ['filled', 'stopped', 'update']
         self.alert_action = ['move_sl', 'close', 'cancel']
         return
+
+    def find_risk(self, line: str) -> None:
+        """Find the risk for trade"""
+        """example: ARKM - Short (0.25R)"""
+        if line.lower().find('0.25r') >= 0:
+            self.trade['risk'] = 0.25
+        elif line.lower().find('0.5r') >= 0:
+            self.trade['risk'] = 0.5
 
     def find_pair(self, line: str) -> None:
         """find pair in line and save to data"""
@@ -93,6 +102,7 @@ class BheemParser:
                 TP: 2415.2
                 <@&1202381806989754378>"""
         for line in lines:
+            self.find_risk(line)
             if not self.trade['pair']:
                 self.find_pair(line)
             if not self.trade['side']:

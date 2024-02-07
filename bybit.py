@@ -65,6 +65,8 @@ class Bybit:
             self.trade["side"] = "Buy"
         else:
             self.trade["side"] = "Sell"
+
+        self.trade["risk"] = trade['risk']
         # request market price
         self.get_current_price()
 
@@ -82,7 +84,7 @@ class Bybit:
             self.trade["entry"].append(float(entry))
 
         # formate sl
-        if self.current_price < 1 and float(trade["sl"]):
+        if self.current_price < 1 and float(trade["sl"]) > 1:
             # need format sl to real data
             self.trade["sl"] = self.format_big_value_to_real(float(trade["sl"]))
         else:
@@ -91,7 +93,7 @@ class Bybit:
         # formate tp
         self.trade["tp"] = None
         if trade["tp"] and trade["tp"] != "tbd":
-            if self.current_price < 1 and float(trade["tp"]):
+            if self.current_price < 1 and float(trade["tp"]) > 1:
                 # need format sl to real data
                 self.trade["tp"] = self.format_big_value_to_real(float(trade["tp"]))
             else:
@@ -118,7 +120,10 @@ class Bybit:
 
     def place_market_order(self, sl_size: float) -> dict:
         """Send market order"""
-        amount_usdt = (self.balance * self.current_price * sl_size) / (self.current_price - self.trade["sl"])
+        if self.trade["side"] == 'Buy':
+            amount_usdt = (self.balance * self.current_price * sl_size) / (self.current_price - self.trade["sl"])
+        else:
+            amount_usdt = (self.balance * self.current_price * sl_size) / (self.trade["sl"] - self.current_price)
         order = {"symbol": self.trade["pair"], "side": self.trade["side"], "orderType": "Market"}
         round_index = self.get_round_index(self.current_price)
         order["qty"] = round(amount_usdt / self.current_price, round_index)
@@ -149,7 +154,10 @@ class Bybit:
 
     def place_limit_order(self, entry: float, sl_size: float) -> dict:
         """Send limit order"""
-        amount_usdt = (self.balance * entry * sl_size) / (entry - self.trade["sl"])
+        if self.trade["side"] == 'Buy':
+            amount_usdt = (self.balance * entry * sl_size) / (entry - self.trade["sl"])
+        else:
+            amount_usdt = (self.balance * entry * sl_size) / (self.trade["sl"] - entry)
         order = {"symbol": self.trade["pair"], "side": self.trade["side"], "orderType": "Limit"}
 
         round_index = self.get_round_index(entry)
@@ -183,10 +191,7 @@ class Bybit:
     def make_trade(self) -> None:
         """Make a trade"""
         # calculate sl per entry
-        if len(self.trade['entry']) == 1:
-            sl_percent = self.risk_percent / 2
-        else:
-            sl_percent = self.risk_percent / len(self.trade["entry"])
+        sl_percent = self.risk_percent * self.trade["risk"]
         for entry in self.trade["entry"]:
             if str(entry) == "cmp":
                 order = self.place_market_order(sl_percent)
@@ -268,11 +273,15 @@ class Bybit:
             return report
         size = float(result["result"]["list"][0]["size"])
         size = self.check_max_qty(size)
+
+        order_side = "Sell"
+        if result["result"]["list"][0]["size"] == "Sell":
+            order_side = "Buy"
         # close position by market order
         try:
             result = self.session.place_order(category="linear",
                                               symbol=pair,
-                                              side='Sell',
+                                              side=order_side,
                                               orderType='Market',
                                               qty=size)
         except Exception as e:
