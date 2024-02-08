@@ -37,3 +37,9 @@ while True:
         print('ORDERS:')
         for key,order in enumerate(orders):
             print(f'{key}:\t {order["symbol"]}\t {order["price"]}')
+    elif selected_cmd == 'Close order':
+        order_key = input("Enter order key:")
+        if order_key == 'Q':
+            sys.exit()
+        selected_order = orders[order_key]
+        print(selected_order)
