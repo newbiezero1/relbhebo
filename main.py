@@ -43,13 +43,16 @@ def check_trades():
     if new_message:
         bheem = BheemParser()
         bheem.parse_trade_message_data(new_message.strip())
+        if bheem.check_trade_data():
+            # check sl in trade
+            if not bheem.trade["sl"]:
+                util.save_lost_sl_trade(bheem.trade)
         for user in config.users.values():
             notifyer = Notifyer(user["tg_chat_id"])
 
             if bheem.check_trade_data():
                 # check sl in trade
                 if not bheem.trade["sl"]:
-                    util.save_lost_sl_trade(bheem.trade)
                     notifyer.lost_sl(bheem.trade, new_message)
                     continue
                 # notify in tg about new message
