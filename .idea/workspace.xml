@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f94b258-05c8-44d0-a7de-a6f97b26fae3" name="Changes" comment="add entry check for saved orders">
-      <change afterPath="$PROJECT_DIR$/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="8f94b258-05c8-44d0-a7de-a6f97b26fae3" name="Changes" comment="add admin script">
+      <change beforePath="$PROJECT_DIR$/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +105,7 @@
       <option name="presentableId" value="Default" />
       <updated>1707005393036</updated>
       <workItem from="1707005395952" duration="17674000" />
-      <workItem from="1707108893143" duration="15424000" />
+      <workItem from="1707108893143" duration="15580000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -492,7 +491,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707356157698</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="add admin script">
+      <option name="closed" value="true" />
+      <created>1707357706414</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1707357706414</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -510,7 +517,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix cmp id" />
     <MESSAGE value="fix alerts for pair ... sl be" />
     <MESSAGE value="add new cancel alert variant" />
     <MESSAGE value="fix value formatter" />
@@ -535,7 +541,8 @@
     <MESSAGE value="add risk for trade from msg and fix short" />
     <MESSAGE value="fix" />
     <MESSAGE value="add entry check for saved orders" />
-    <option name="LAST_COMMIT_MESSAGE" value="add entry check for saved orders" />
+    <MESSAGE value="add admin script" />
+    <option name="LAST_COMMIT_MESSAGE" value="add admin script" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/bheem$notifyer.coverage" NAME="notifyer Coverage Results" MODIFIED="1707021315320" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

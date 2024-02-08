@@ -31,9 +31,9 @@ while True:
         positions = bybit.get_open_positions()
         print('POSITIONS:')
         for key,position in enumerate(positions):
-            print(f'{key}:\t{position['symbol']}\t PNL {position["unrealisedPnl"]}')
+            print(f'{key}:\t{position["symbol"]}\t PNL {position["unrealisedPnl"]}')
     elif selected_cmd == 'Display orders':
         orders = bybit.get_open_orders()
         print('ORDERS:')
         for key,order in enumerate(orders):
-            print(f'{key}:\t {order['symbol']}\t {order['price']}')
+            print(f'{key}:\t {order["symbol"]}\t {order["price"]}')
