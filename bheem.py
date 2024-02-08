@@ -212,12 +212,18 @@ class BheemParser:
         return False
 
     @staticmethod
-    def find_trade_data_in_limit(pair: str, message: str) -> str:
+    def find_trade_data_in_limit(pair: str, entries: list, message: str) -> str:
         """find needed pair in limit orders section and return SL and TP"""
         limit_section = message.split('limit orders')
         limit_orders = limit_section[1].split("\n\n")
         for order in limit_orders:
             if order.find(pair + "/") >= 0:
+                current_order = False
+                for entry in entries:
+                    if order.find(str(entry)):
+                        current_order = True
+                if not current_order:
+                    continue
                 order = order.replace('entry :', 'entry:')
                 order = order.replace('sl :', 'sl:')
                 order = order.replace('tp :', 'tp:')
