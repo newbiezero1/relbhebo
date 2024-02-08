@@ -275,7 +275,7 @@ class Bybit:
         size = self.check_max_qty(size)
 
         order_side = "Sell"
-        if result["result"]["list"][0]["size"] == "Sell":
+        if result["result"]["list"][0]["side"] == "Sell":
             order_side = "Buy"
         # close position by market order
         try:
