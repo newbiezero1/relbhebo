@@ -220,7 +220,7 @@ class BheemParser:
             if order.find(pair + "/") >= 0:
                 current_order = False
                 for entry in entries:
-                    if order.find(str(entry)):
+                    if order.find(str(entry)) >= 0:
                         current_order = True
                 if not current_order:
                     continue
