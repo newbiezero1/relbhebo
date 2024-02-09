@@ -143,8 +143,9 @@ class BheemParser:
         """parse bheem alerts message"""
         message = message.strip()
         data = message.split(" ")
-        # pair maybe first and upper
+        # first find pair else broken alert
         if data[0].isupper():
+            # pair maybe first and upper
             self.alert["pair"] = data[0].lower().strip(":")
         elif message.lower().find("for") >= 0:
             # maybe 'close for BTC'
@@ -156,29 +157,19 @@ class BheemParser:
         self.alert['value'] = data[2].lower()
         # action must be second
         self.alert["action"] = data[1].lower().replace(',', '')
-        if self.alert["action"] == "sl":
+        if message.lower().find("sl") >= 0:
             if message.lower().find("sl updated to h") >= 0:
                 self.alert["action"] = 'update'
+            elif message.lower().find("once it touch") >= 0:
+                self.alert['action'] = 'update'
             else:
                 self.alert["action"] = "move_sl"
-        elif self.alert["action"] == "closed":
+            self.alert["value"] = "be"
+        elif message.lower().find("closed") >= 0 or message.lower().find("booked") >= 0:
             self.alert["action"] = "close"
-        elif self.alert["action"] == "cancelled":
+            self.alert["value"] = "be"
+        elif message.lower().find("cancelled") >= 0 or message.lower().find("canceled") >= 0:
             self.alert["action"] = "cancel"
-        elif self.alert["action"] == "canceled":
-            self.alert["action"] = "cancel"
-        elif self.alert["action"] == "filled":
-            if message.lower().find("sl be") >= 0:
-                self.alert["action"] = "move_sl"
-                self.alert["value"] = "be"
-            if message.lower().find("closed") >= 0:
-                self.alert["action"] = "close"
-                self.alert["value"] = "be"
-        else:
-            if message.lower().find("cancelled") >= 0:
-                self.alert["action"] = "cancel"
-            elif message.lower().find("booked") >= 0:
-                self.alert["action"] = "close"
         return self.alert
 
     def parse_trade_message_data(self, message: str) -> dict:
