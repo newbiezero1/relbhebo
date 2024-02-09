@@ -79,6 +79,8 @@ class BheemParser:
             if line.lower().find("ssl: h") >= 0:
                 data = line.split(" ")
                 self.trade["sl"] = data[-1]
+                if self.trade["sl"].lower().find("h") >= 0:
+                    self.trade["sl"] = ''
                 return
         if line.lower().find("sl") >= 0:
             data = line.lower().split("sl: ")
