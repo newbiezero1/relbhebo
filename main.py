@@ -118,6 +118,10 @@ def check_lost_sl_trades():
                     except Exception as e:
                         util.error(f'can\'t connect to bybit api, user: *{user["name"]}*', finish=False)
                         continue
+                    for entry in bheem.trade['entry']:
+                        # remove market order for saved
+                        if entry == 'cmp':
+                            bheem.trade['entry'].remove('cmp')
                     bybit.set_trade_data(bheem.trade)
                     bybit.make_trade()
                     if bybit.api_error_flag:
