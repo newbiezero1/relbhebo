@@ -162,6 +162,12 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.alert["pair"], 'jup')
         self.assertEqual(self.parser.alert["action"], 'move_sl')
 
+    def test_parse_message_ssl_without_point(self):
+        new_message = "SEI limit 6561/6502 SSL: H4"
+        self.parser.parse_trade_message_data(new_message)
+        self.assertEqual(self.parser.trade["pair"], 'sei')
+        self.assertEqual(self.parser.trade["sl"], '')
+
     def test_parse_message_find_r(self):
         new_messages = ''' RNDR - Long (0.25R)
         Entry: 3.9650
