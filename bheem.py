@@ -152,6 +152,9 @@ class BheemParser:
         elif message.lower().find("for") >= 0:
             # maybe 'close for BTC'
             self.alert['pair'] = data[data.index('for')+1]
+        elif data[1].isupper():
+            # pair maybe second and uper
+            self.alert["pair"] = data[1].lower()
         else:
             # cant recognize pair
             return self.alert
@@ -170,7 +173,8 @@ class BheemParser:
         elif message.lower().find("closed") >= 0 or message.lower().find("booked") >= 0:
             self.alert["action"] = "close"
             self.alert["value"] = "be"
-        elif message.lower().find("cancelled") >= 0 or message.lower().find("canceled") >= 0:
+        elif (message.lower().find("cancelled") >= 0 or message.lower().find("canceled") >= 0
+              or message.lower().find("cancel") >= 0):
             self.alert["action"] = "cancel"
         return self.alert
 

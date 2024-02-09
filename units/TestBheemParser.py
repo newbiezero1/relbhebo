@@ -108,6 +108,12 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.alert["action"], 'move_sl')
         self.assertEqual(self.parser.alert["value"], 'be')
 
+    def test_parse_alert_message_when_pair_second(self):
+        new_message = "Cancel RNDR Long @RAMI ALERT"
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'rndr')
+        self.assertEqual(self.parser.alert["action"], 'cancel')
+
     def test_parse_alert_message_cancel(self):
         new_message = "WIF cancelled @BHEEM ALERT"
         self.parser.parse_alert_message_data(new_message)
