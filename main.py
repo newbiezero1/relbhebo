@@ -6,7 +6,7 @@ from bheem import BheemParser
 import util
 from notifyer import Notifyer
 from bybit import Bybit
-
+from chatgpt import ChatGPT
 
 def check_alert():
     """Check new alerts and action"""
@@ -46,7 +46,11 @@ def check_trades():
         if bheem.check_trade_data():
             # check sl in trade
             if not bheem.trade["sl"]:
-                util.save_lost_sl_trade(bheem.trade)
+                util.save_img(new_message)
+                gpt = ChatGPT()
+
+                #util.save_lost_sl_trade(bheem.trade)
+        return
         for user in config.users.values():
             notifyer = Notifyer(user["tg_chat_id"])
 

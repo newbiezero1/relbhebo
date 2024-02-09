@@ -1,6 +1,8 @@
 """Other functions"""
 import sys
 import json
+import requests
+
 import config
 from notifyer import Notifyer
 
@@ -38,7 +40,7 @@ def set_content_file(filename: str, content: str) -> None:
         error("File not found : " + filename)
 
 
-def check_new_message(messages: list, history_file: str) -> list:
+def check_new_message(messages: list, history_file: str) -> dict:
     """load all messages from channel and check in file"""
     # sort by chronology
     messages.reverse()
@@ -73,3 +75,10 @@ def get_user_by_chat_id(chat_id: int) -> dict:
         if user["tg_chat_id"] == chat_id:
             return user
     return {}
+
+def save_img(message: dict) -> None:
+    url = message['attachments'][0]['url']
+    img = requests.get(url)
+    f_name = 'img/trade.png'
+    with open(f_name, 'wb') as f:
+        f.write(img.content)
