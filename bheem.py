@@ -181,7 +181,7 @@ class BheemParser:
     def parse_trade_message_data(self, message: str) -> dict:
         """parse bheem message"""
         # remove server tag
-        message = message.replace('<@&1202381806989754378>','').strip()
+        message = message.replace('<@&1202381806989754378>','').strip().strip('**')
         lines = message.split("\n")
         if len(lines) == 1:
             # one line message
