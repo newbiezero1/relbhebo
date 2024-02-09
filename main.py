@@ -14,7 +14,7 @@ def check_alert():
     new_message = util.check_new_message(all_messages, config.files_list["bheem_alerts"])
     if new_message:
         bheem = BheemParser()
-        bheem.parse_alert_message_data(new_message)
+        bheem.parse_alert_message_data(new_message.strip())
         for user in config.users.values():
             notifyer = Notifyer(user["tg_chat_id"])
             if bheem.check_alert_data():
