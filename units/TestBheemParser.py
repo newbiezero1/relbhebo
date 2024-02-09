@@ -145,6 +145,36 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.alert["pair"], 'sei')
         self.assertEqual(self.parser.alert["action"], 'update')
 
+    def test_parse_alert_message_closed_with_booked(self):
+        new_message = "Booked at 0.3274 for BIGTIME @RAMI ALERT"
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'BIGTIME')
+        self.assertEqual(self.parser.alert["action"], 'close')
+
+    def test_parse_alert_message_find_pair_in_for(self):
+        new_message = "Booked at 0.3274 for BIGTIME @RAMI ALERT"
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'BIGTIME')
+
+    def test_parse_alert_message_move_sl_with_coma_and_space(self):
+        new_message = " JUP filled, SL BE <@&1202381848127479828>"
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'jup')
+        self.assertEqual(self.parser.alert["action"], 'move_sl')
+
+    def test_parse_message_find_r(self):
+        new_messages = ''' RNDR - Long (0.25R)
+        Entry: 3.9650
+        SL: 3.740
+        TP: 4.3873'''
+        self.parser.parse_trade_message_data(new_messages)
+        self.assertEqual(self.parser.trade["pair"], 'rndr')
+        self.assertEqual(self.parser.trade["side"], 'long')
+        self.assertEqual(self.parser.trade["entry"], ['3.9650'])
+        self.assertEqual(self.parser.trade["sl"], '3.740')
+        self.assertEqual(self.parser.trade["tp"], '4.3873')
+        self.assertEqual(self.parser.trade['risk'], 0.25)
+
 
 if __name__ == '__main__':
     unittest.main()

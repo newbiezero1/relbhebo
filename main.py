@@ -14,7 +14,7 @@ def check_alert():
     new_message = util.check_new_message(all_messages, config.files_list["bheem_alerts"])
     if new_message:
         bheem = BheemParser()
-        bheem.parse_alert_message_data(new_message.strip())
+        bheem.parse_alert_message_data(new_message)
         for user in config.users.values():
             notifyer = Notifyer(user["tg_chat_id"])
             if bheem.check_alert_data():
@@ -42,7 +42,7 @@ def check_trades():
     new_message = util.check_new_message(all_messages, config.files_list['bheem_trades'])
     if new_message:
         bheem = BheemParser()
-        bheem.parse_trade_message_data(new_message.strip())
+        bheem.parse_trade_message_data(new_message)
         if bheem.check_trade_data():
             # check sl in trade
             if not bheem.trade["sl"]:

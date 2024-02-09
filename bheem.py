@@ -141,6 +141,7 @@ class BheemParser:
 
     def parse_alert_message_data(self, message: str) -> dict:
         """parse bheem alerts message"""
+        message = message.strip()
         data = message.split(" ")
         # pair maybe first and upper
         if data[0].isupper():
@@ -183,7 +184,7 @@ class BheemParser:
     def parse_trade_message_data(self, message: str) -> dict:
         """parse bheem message"""
         # remove server tag
-        message = message.replace('<@&1202381806989754378>','')
+        message = message.replace('<@&1202381806989754378>','').strip()
         lines = message.split("\n")
         if len(lines) == 1:
             # one line message
