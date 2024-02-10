@@ -151,6 +151,12 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.alert["pair"], 'sei')
         self.assertEqual(self.parser.alert["action"], 'update')
 
+    def test_parse_alert_message_update_without_sl(self):
+        new_message = "BLUR updated to H1 SSL <@&1202381848127479828>"
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'blur')
+        self.assertEqual(self.parser.alert["action"], 'update')
+
     def test_parse_alert_message_closed_with_booked(self):
         new_message = "Booked at 0.3274 for BIGTIME @RAMI ALERT"
         self.parser.parse_alert_message_data(new_message)
