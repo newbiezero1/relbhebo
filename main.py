@@ -46,10 +46,13 @@ def check_trades():
         if bheem.check_trade_data():
             # check sl in trade
             if not bheem.trade["sl"]:
-                util.save_img(new_message)
-                gpt = ChatGPT()
-
-                #util.save_lost_sl_trade(bheem.trade)
+                if new_message['attachments']:
+                    gpt = ChatGPT()
+                    sl = gpt.get_sl_from_img(new_message['attachments'][0]['url'])
+                    bheem.trade["sl"] = sl
+            if not bheem.trade["sl"]:
+                util.save_lost_sl_trade(bheem.trade)
+            print(bheem.trade)
         return
         for user in config.users.values():
             notifyer = Notifyer(user["tg_chat_id"])

@@ -75,10 +75,3 @@ def get_user_by_chat_id(chat_id: int) -> dict:
         if user["tg_chat_id"] == chat_id:
             return user
     return {}
-
-def save_img(message: dict) -> None:
-    url = message['attachments'][0]['url']
-    img = requests.get(url)
-    f_name = 'img/trade.png'
-    with open(f_name, 'wb') as f:
-        f.write(img.content)
