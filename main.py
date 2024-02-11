@@ -8,6 +8,7 @@ from notifyer import Notifyer
 from bybit import Bybit
 from chatgpt import ChatGPT
 
+
 def check_alert():
     """Check new alerts and action"""
     all_messages = client.fetch_messages(config.bheem_channels["alerts"])
@@ -52,8 +53,6 @@ def check_trades():
                     bheem.trade["sl"] = sl
             if not bheem.trade["sl"]:
                 util.save_lost_sl_trade(bheem.trade)
-            print(bheem.trade)
-        return
         for user in config.users.values():
             notifyer = Notifyer(user["tg_chat_id"])
 
@@ -63,7 +62,7 @@ def check_trades():
                     notifyer.lost_sl(bheem.trade, new_message['content'])
                     continue
                 # notify in tg about new message
-                notifyer.new_trade(bheem.trade, new_message['content'])
+                notifyer.new_trade(bheem.trade, new_message)
                 # make trade if this user enable autotrade
                 if user["autotrade_enabled"]:
                     try:

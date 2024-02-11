@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f94b258-05c8-44d0-a7de-a6f97b26fae3" name="Changes" comment="fix using new message">
-      <change beforePath="$PROJECT_DIR$/config.py.example" beforeDir="false" afterPath="$PROJECT_DIR$/config.py.example" afterDir="false" />
+    <list default="true" id="8f94b258-05c8-44d0-a7de-a6f97b26fae3" name="Changes" comment="add api to config">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notifyer.py" beforeDir="false" afterPath="$PROJECT_DIR$/notifyer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,14 +115,6 @@
       <workItem from="1707005395952" duration="17674000" />
       <workItem from="1707108893143" duration="24363000" />
       <workItem from="1707465472020" duration="4162000" />
-    </task>
-    <task id="LOCAL-00016" summary="fix alerts for pair ... sl be">
-      <option name="closed" value="true" />
-      <created>1707053229443</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1707053229443</updated>
     </task>
     <task id="LOCAL-00017" summary="add tests">
       <option name="closed" value="true" />
@@ -506,7 +500,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707676484548</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="add api to config">
+      <option name="closed" value="true" />
+      <created>1707676586082</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1707676586082</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -524,7 +526,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="reorginize main file" />
     <MESSAGE value="add trade saved order" />
     <MESSAGE value="delete stored orders if exceptions" />
     <MESSAGE value="saved every lost not found" />
@@ -549,7 +550,8 @@
     <MESSAGE value="fix ** in start msg" />
     <MESSAGE value="add chatgpt" />
     <MESSAGE value="fix using new message" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix using new message" />
+    <MESSAGE value="add api to config" />
+    <option name="LAST_COMMIT_MESSAGE" value="add api to config" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
