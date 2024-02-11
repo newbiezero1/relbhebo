@@ -101,6 +101,19 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.trade["sl"], '1.393')
         self.assertEqual(self.parser.trade["tp"], 'tbd')
 
+    def test_parse_message_many_lines_with_ssl_m15(self):
+        new_messages = '''**BTC/SPOT - LONG**
+            
+            Entry: 47751/47557
+            SSL: m15 47454
+            TP: 51936'''
+        self.parser.parse_trade_message_data(new_messages)
+        self.assertEqual(self.parser.trade["pair"], 'btc')
+        self.assertEqual(self.parser.trade["side"], 'long')
+        self.assertEqual(self.parser.trade["entry"], ['47751', '47557'])
+        self.assertEqual(self.parser.trade["sl"], '47454')
+        self.assertEqual(self.parser.trade["tp"], '51936')
+
     def test_parse_alert_message_data(self):
         new_message = "ICP SL BE (11.683) <@&1202381848127479828>"
         self.parser.parse_alert_message_data(new_message)
