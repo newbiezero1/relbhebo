@@ -33,7 +33,7 @@ def check_alert():
                         continue
                     notifyer.alert_report(report)
             else:
-                notifyer.broken_message(new_message)
+                notifyer.broken_message(new_message['content'])
 
 
 def check_trades():
@@ -85,11 +85,11 @@ def check_trades():
 def check_rekt_updates():
     all_messages = client.fetch_messages(config.rekt_channels["trades"])
     new_message = util.check_new_message(all_messages, config.files_list['rekt_trades'])
-    if new_message:
-        new_message = '*REKT:*\n' + new_message
+    if new_message['content']:
+        new_message['content'] = '*REKT:*\n' + new_message['content']
         for user in config.users.values():
             notifyer = Notifyer(user["tg_chat_id"])
-            notifyer.send_message(new_message)
+            notifyer.send_message(new_message['content'])
 
 
 def check_lost_sl_trades():
