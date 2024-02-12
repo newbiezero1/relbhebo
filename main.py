@@ -143,10 +143,10 @@ def check_lost_sl_trades():
 
 client = DiscordClient(config.discord_token)
 # bheem alerts section
-#check_alert()
+check_alert()
 # bheem trade section
 check_trades()
 # rekt trades section
-#check_rekt_updates()
+check_rekt_updates()
 # check lost sl trades
-#check_lost_sl_trades()
+check_lost_sl_trades()

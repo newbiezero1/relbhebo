@@ -58,7 +58,7 @@ def check_new_message(messages: list, history_file: str) -> dict:
         new_message = message
         break
     # save new id in file
-    #set_content_file(history_file, json.dumps(new_history_messages))
+    set_content_file(history_file, json.dumps(new_history_messages))
     return new_message
 
 
