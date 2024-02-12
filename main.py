@@ -6,19 +6,20 @@ from bheem import BheemParser
 import util
 from notifyer import Notifyer
 from bybit import Bybit
+from chatgpt import ChatGPT
 
 
 def check_alert():
     """Check new alerts and action"""
     all_messages = client.fetch_messages(config.bheem_channels["alerts"])
     new_message = util.check_new_message(all_messages, config.files_list["bheem_alerts"])
-    if new_message:
+    if new_message['content']:
         bheem = BheemParser()
-        bheem.parse_alert_message_data(new_message)
+        bheem.parse_alert_message_data(new_message['content'])
         for user in config.users.values():
             notifyer = Notifyer(user["tg_chat_id"])
             if bheem.check_alert_data():
-                notifyer.new_alert(bheem.alert, new_message)
+                notifyer.new_alert(bheem.alert, new_message['content'])
                 # update trade
                 if user["autotrade_enabled"] and bheem.check_alert_action():
                     try:
@@ -33,18 +34,23 @@ def check_alert():
                         continue
                     notifyer.alert_report(report)
             else:
-                notifyer.broken_message(new_message)
+                notifyer.broken_message(new_message['content'])
 
 
 def check_trades():
     """Check new trades and make trade"""
     all_messages = client.fetch_messages(config.bheem_channels["trades"])
     new_message = util.check_new_message(all_messages, config.files_list['bheem_trades'])
-    if new_message:
+    if new_message['content']:
         bheem = BheemParser()
-        bheem.parse_trade_message_data(new_message)
+        bheem.parse_trade_message_data(new_message['content'])
         if bheem.check_trade_data():
             # check sl in trade
+            if not bheem.trade["sl"]:
+                if new_message['attachments']:
+                    gpt = ChatGPT()
+                    sl = gpt.get_sl_from_img(new_message['attachments'][0]['url'])
+                    bheem.trade["sl"] = sl
             if not bheem.trade["sl"]:
                 util.save_lost_sl_trade(bheem.trade)
         for user in config.users.values():
@@ -53,7 +59,7 @@ def check_trades():
             if bheem.check_trade_data():
                 # check sl in trade
                 if not bheem.trade["sl"]:
-                    notifyer.lost_sl(bheem.trade, new_message)
+                    notifyer.lost_sl(bheem.trade, new_message['content'])
                     continue
                 # notify in tg about new message
                 notifyer.new_trade(bheem.trade, new_message)
@@ -72,17 +78,17 @@ def check_trades():
                     for order in bybit.orders:
                         notifyer.place_order(order)
             else:
-                notifyer.broken_message(new_message)
+                notifyer.broken_message(new_message['content'])
 
 
 def check_rekt_updates():
     all_messages = client.fetch_messages(config.rekt_channels["trades"])
     new_message = util.check_new_message(all_messages, config.files_list['rekt_trades'])
-    if new_message:
-        new_message = '*REKT:*\n' + new_message
+    if new_message['content']:
+        new_message['content'] = '*REKT:*\n' + new_message['content']
         for user in config.users.values():
             notifyer = Notifyer(user["tg_chat_id"])
-            notifyer.send_message(new_message)
+            notifyer.send_message(new_message['content'])
 
 
 def check_lost_sl_trades():

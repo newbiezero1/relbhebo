@@ -18,9 +18,10 @@ class Notifyer:
         if not markdown:
             parse_mode = ""
         url = f'https://api.telegram.org/bot{self.token}/sendMessage?{parse_mode}chat_id={self.chat_id}{disable_notification}'
-        requests.post(url, data={"text": message})  # this sends the message
+        r = requests.post(url, data={"text": message})  # this sends the message
+        print(r.text)
 
-    def new_trade(self, trade_info: dict, origin_message: str) -> None:
+    def new_trade(self, trade_info: dict, origin_message: dict) -> None:
         message = f'''Parse trade: 
             PAIR: *{trade_info["pair"]}*
             SIDE: *{trade_info["side"]}*
@@ -29,8 +30,10 @@ class Notifyer:
             TP: *{trade_info["tp"]}*
             ===
             Original message:
-            {origin_message}'''.replace("    ", "")
-        self.send_message(message, silence=True)
+            {origin_message["content"]}'''.replace("    ", "")
+        if origin_message['attachments']:
+            message += f'''\n{origin_message['attachments'][0]['url']}'''
+        self.send_message(message, silence=True, markdown=False)
 
     def new_saved_trade(self, trade_info: dict, origin_message: str) -> None:
         message = f'''parsed full infor saved trade: 

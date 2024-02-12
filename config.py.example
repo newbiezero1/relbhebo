@@ -33,3 +33,6 @@ users = {
 }
 
 tg_bot_cmd_list = ["/my_active", "/ahmed_active", "/saved_orders", ]
+
+
+openai_api_key = '<apikey>'

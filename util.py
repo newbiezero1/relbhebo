@@ -1,6 +1,8 @@
 """Other functions"""
 import sys
 import json
+import requests
+
 import config
 from notifyer import Notifyer
 
@@ -38,13 +40,14 @@ def set_content_file(filename: str, content: str) -> None:
         error("File not found : " + filename)
 
 
-def check_new_message(messages: list, history_file: str) -> str:
+def check_new_message(messages: list, history_file: str) -> dict:
     """load all messages from channel and check in file"""
     # sort by chronology
     messages.reverse()
 
     history_messages = json.loads(get_content_file(history_file))
-    new_message = ''
+    new_history_messages = []
+    new_message = {"content": ''}
     for message in messages:
         if message["id"] in history_messages:
             continue
@@ -52,7 +55,7 @@ def check_new_message(messages: list, history_file: str) -> str:
         # skip img post
         if not message["content"]:
             continue
-        new_message = message["content"]
+        new_message = message
         break
     # save new id in file
     set_content_file(history_file, json.dumps(history_messages))
