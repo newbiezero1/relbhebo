@@ -18,8 +18,7 @@ class Notifyer:
         if not markdown:
             parse_mode = ""
         url = f'https://api.telegram.org/bot{self.token}/sendMessage?{parse_mode}chat_id={self.chat_id}{disable_notification}'
-        r = requests.post(url, data={"text": message})  # this sends the message
-        print(r.text)
+        requests.post(url, data={"text": message})  # this sends the message
 
     def new_trade(self, trade_info: dict, origin_message: dict) -> None:
         message = f'''Parse trade: 

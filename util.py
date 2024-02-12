@@ -46,7 +46,6 @@ def check_new_message(messages: list, history_file: str) -> dict:
     messages.reverse()
 
     history_messages = json.loads(get_content_file(history_file))
-    new_history_messages = []
     new_message = {"content": ''}
     for message in messages:
         if message["id"] in history_messages:
