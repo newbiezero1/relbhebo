@@ -44,20 +44,18 @@ def check_new_message(messages: list, history_file: str) -> str:
     messages.reverse()
 
     history_messages = json.loads(get_content_file(history_file))
-    new_history_messages = []
     new_message = ''
     for message in messages:
-        new_history_messages.append(message["id"])
         if message["id"] in history_messages:
             continue
+        history_messages.append(message["id"])
         # skip img post
         if not message["content"]:
             continue
         new_message = message["content"]
         break
     # save new id in file
-    if new_history_messages:
-        set_content_file(history_file, json.dumps(new_history_messages))
+    set_content_file(history_file, json.dumps(history_messages))
     return new_message
 
 
