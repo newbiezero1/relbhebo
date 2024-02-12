@@ -49,8 +49,11 @@ def check_trades():
             if not bheem.trade["sl"]:
                 if new_message['attachments']:
                     gpt = ChatGPT()
-                    sl = gpt.get_sl_from_img(new_message['attachments'][0]['url'])
-                    bheem.trade["sl"] = sl
+                    try:
+                        sl = gpt.get_sl_from_img(new_message['attachments'][0]['url'], bheem.trade['side'])
+                        bheem.trade["sl"] = sl
+                    except Exception as e:
+                        util.error(f'ChatGPT error: {e}', finish=False)
             if not bheem.trade["sl"]:
                 util.save_lost_sl_trade(bheem.trade)
         for user in config.users.values():

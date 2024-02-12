@@ -7,17 +7,22 @@ class ChatGPT:
     def __init__(self):
         self.client = OpenAI(api_key=config.openai_api_key)
         self.model = "gpt-4-vision-preview"
-        self.promt = 'Look to image and find stop loss he is red. Let response in format SL: (stop loss)'
+        self.promt_short = 'Look to image and find stop loss he is red. if this short trade SL in top red box. Let response in format SL: (stop loss)'
+        self.promt_long = 'Look to image and find stop loss he is red. Let response in format SL: (stop loss)'
 
-    def get_sl_from_img(self, url: str) -> str:
+    def get_sl_from_img(self, url: str, side='long') -> str:
         """ask to gpt for help find sl in picture"""
+        if side == 'long':
+            promt = self.promt_long
+        else:
+            promt = self.promt_short
         response = self.client.chat.completions.create(
             model=self.model,
             messages=[
                 {
                     "role": "user",
                     "content": [
-                        {"type": "text", "text": self.promt},
+                        {"type": "text", "text": promt},
                         {
                             "type": "image_url",
                             "image_url": url,
