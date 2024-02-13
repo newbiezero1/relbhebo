@@ -201,6 +201,8 @@ class Bybit:
             else:
                 order = self.place_limit_order(entry, sl_percent)
                 self.orders.append(order)
+            # only first entry
+            break
 
     def cancel_limit_order(self, pair: str) -> str:
         """Cancel limit order by pair"""

@@ -9,7 +9,7 @@ class BheemParser:
             'entry': [],
             'sl': '',
             'tp': '',
-            'risk': 0.5,
+            'risk': 1.0,
         }
         self.alert = {
             'pair': '',

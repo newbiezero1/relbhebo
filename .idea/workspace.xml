@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f94b258-05c8-44d0-a7de-a6f97b26fae3" name="Changes" comment="merge chatgpt">
+    <list default="true" id="8f94b258-05c8-44d0-a7de-a6f97b26fae3" name="Changes" comment="fix chatgpt for short and add exception">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chatgpt.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatgpt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bheem.py" beforeDir="false" afterPath="$PROJECT_DIR$/bheem.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bybit.py" beforeDir="false" afterPath="$PROJECT_DIR$/bybit.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/util.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,14 +116,6 @@
       <workItem from="1707005395952" duration="17674000" />
       <workItem from="1707108893143" duration="24363000" />
       <workItem from="1707465472020" duration="4162000" />
-    </task>
-    <task id="LOCAL-00018" summary="add new cancel alert variant">
-      <option name="closed" value="true" />
-      <created>1707053780008</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1707053780008</updated>
     </task>
     <task id="LOCAL-00019" summary="fix value formatter">
       <option name="closed" value="true" />
@@ -509,7 +501,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707699593086</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="fix chatgpt for short and add exception">
+      <option name="closed" value="true" />
+      <created>1707700903089</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1707700903089</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -527,7 +527,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="delete stored orders if exceptions" />
     <MESSAGE value="saved every lost not found" />
     <MESSAGE value="add notice for rekt" />
     <MESSAGE value="fix update type alert" />
@@ -552,7 +551,8 @@
     <MESSAGE value="fix using new message" />
     <MESSAGE value="add api to config" />
     <MESSAGE value="merge chatgpt" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge chatgpt" />
+    <MESSAGE value="fix chatgpt for short and add exception" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix chatgpt for short and add exception" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -561,6 +561,10 @@
           <url>file://$PROJECT_DIR$/util.py</url>
           <line>1</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/units/TestBheemParser.py</url>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -47,6 +47,7 @@ def check_trades():
         if bheem.check_trade_data():
             # check sl in trade
             if not bheem.trade["sl"]:
+                # try to get SL from img trade via chatgpt
                 if new_message['attachments']:
                     gpt = ChatGPT()
                     try:
