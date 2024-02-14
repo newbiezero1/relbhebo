@@ -125,6 +125,7 @@ class BheemParser:
         if data[0].isupper():
             self.trade['pair'] = data[0].lower()
 
+        self.find_risk(line)
         # start find side
         self.find_side(line)
 
