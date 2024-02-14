@@ -48,6 +48,10 @@ def check_trades():
             # check sl in trade
             if not bheem.trade["sl"]:
                 # try to get SL from img trade via chatgpt
+                if not new_message['attachments']:
+                    # try get next msg
+                    next_message = util.check_new_message(all_messages, config.files_list['bheem_trades'], False)
+                    new_message['attachments'] = next_message['attachments']
                 if new_message['attachments']:
                     gpt = ChatGPT()
                     try:

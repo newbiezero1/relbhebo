@@ -40,19 +40,19 @@ def set_content_file(filename: str, content: str) -> None:
         error("File not found : " + filename)
 
 
-def check_new_message(messages: list, history_file: str) -> dict:
+def check_new_message(messages: list, history_file: str, skip_img=True) -> dict:
     """load all messages from channel and check in file"""
     # sort by chronology
     messages.reverse()
 
     history_messages = json.loads(get_content_file(history_file))
-    new_message = {"content": ''}
+    new_message = {"content": '', 'attachments': []}
     for message in messages:
         if message["id"] in history_messages:
             continue
         history_messages.append(message["id"])
         # skip img post
-        if not message["content"]:
+        if not message["content"] and skip_img:
             continue
         new_message = message
         break
