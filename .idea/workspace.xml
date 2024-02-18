@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f94b258-05c8-44d0-a7de-a6f97b26fae3" name="Changes" comment="check next message for attach">
+    <list default="true" id="8f94b258-05c8-44d0-a7de-a6f97b26fae3" name="Changes" comment="fix find R in one line">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bheem.py" beforeDir="false" afterPath="$PROJECT_DIR$/bheem.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/units/TestBheemParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/units/TestBheemParser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="1e70079213f50073d5e53820e1df5dbbe283db56" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -115,14 +114,6 @@
       <workItem from="1707005395952" duration="17674000" />
       <workItem from="1707108893143" duration="24363000" />
       <workItem from="1707465472020" duration="4162000" />
-    </task>
-    <task id="LOCAL-00021" summary="fix max qty on close position">
-      <option name="closed" value="true" />
-      <created>1707087492201</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1707087492201</updated>
     </task>
     <task id="LOCAL-00022" summary="continue work if have error for one">
       <option name="closed" value="true" />
@@ -508,7 +499,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707898001461</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="fix find R in one line">
+      <option name="closed" value="true" />
+      <created>1707898260582</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1707898260582</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -526,7 +525,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix update type alert" />
     <MESSAGE value="pep8" />
     <MESSAGE value="add new type entry" />
     <MESSAGE value="add risk for trade from msg and fix short" />
@@ -551,7 +549,8 @@
     <MESSAGE value="fix chatgpt for short and add exception" />
     <MESSAGE value="only first entry" />
     <MESSAGE value="check next message for attach" />
-    <option name="LAST_COMMIT_MESSAGE" value="check next message for attach" />
+    <MESSAGE value="fix find R in one line" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix find R in one line" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -570,11 +569,11 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/bheem$notifyer.coverage" NAME="notifyer Coverage Results" MODIFIED="1707021315320" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/bheem$main.coverage" NAME="main Coverage Results" MODIFIED="1707700839216" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/bheem$main.coverage" NAME="main Coverage Results" MODIFIED="1707917577891" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/bheem$bheem.coverage" NAME="bheem Coverage Results" MODIFIED="1707450570907" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/bheem$bot.coverage" NAME="bot Coverage Results" MODIFIED="1707159842084" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/bheem$admin.coverage" NAME="admin Coverage Results" MODIFIED="1707359710095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/bheem$twitter.coverage" NAME="twitter Coverage Results" MODIFIED="1707457856662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/bheem$.coverage" NAME=" Coverage Results" MODIFIED="1707898168528" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/units" />
+    <SUITE FILE_PATH="coverage/bheem$.coverage" NAME=" Coverage Results" MODIFIED="1707898220602" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/units" />
   </component>
 </project>

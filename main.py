@@ -96,7 +96,7 @@ def check_rekt_updates():
         new_message['content'] = '*REKT:*\n' + new_message['content']
         for user in config.users.values():
             notifyer = Notifyer(user["tg_chat_id"])
-            notifyer.send_message(new_message['content'])
+            notifyer.send_message(new_message['content'], markdown=False)
 
 
 def check_lost_sl_trades():
