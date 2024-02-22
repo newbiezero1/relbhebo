@@ -120,6 +120,9 @@ class Bybit:
         if self.trade["pair"] == "JUPUSDT":
             if qty > 15000:
                 return 15000
+        if self.trade["pair"] == "IOTXUSDT":
+            if qty > 202500:
+                return 202500
         return qty
 
     def place_market_order(self, sl_size: float) -> dict:
