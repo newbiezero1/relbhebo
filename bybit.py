@@ -55,6 +55,8 @@ class Bybit:
                 value = value / 10
         elif diff > 10 and diff < 100:
             index = 10
+            if value > 1000:
+                index = 100
         elif diff > 100 and diff < 1000:
             index = 100
         return value / (index * 1000)
