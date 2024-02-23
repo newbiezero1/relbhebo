@@ -45,6 +45,8 @@ class Bybit:
 
     def format_big_value_to_real(self, value: float) -> float:
         """Format value as 5100 as 0.05100 if price 0.078"""
+        if value < 2:
+            return value
         diff = (1 / self.current_price)
         index = 1
         if diff < 10:
