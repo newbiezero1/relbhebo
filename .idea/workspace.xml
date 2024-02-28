@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8f94b258-05c8-44d0-a7de-a6f97b26fae3" name="Changes" comment="add new max qty">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bybit.py" beforeDir="false" afterPath="$PROJECT_DIR$/bybit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,6 +121,8 @@
       <workItem from="1708528742135" duration="13000" />
       <workItem from="1708633447366" duration="1419000" />
       <workItem from="1708703015119" duration="626000" />
+      <workItem from="1708708622883" duration="2403000" />
+      <workItem from="1709155448251" duration="13000" />
     </task>
     <task id="LOCAL-00024" summary="fix error api handler">
       <option name="closed" value="true" />

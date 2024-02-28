@@ -155,6 +155,6 @@ check_alert()
 # bheem trade section
 check_trades()
 # rekt trades section
-check_rekt_updates()
+# check_rekt_updates()
 # check lost sl trades
 check_lost_sl_trades()
