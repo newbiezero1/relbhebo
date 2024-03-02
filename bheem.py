@@ -82,7 +82,7 @@ class BheemParser:
                 if self.trade["sl"].lower().find("h") >= 0 or self.trade["sl"].lower().find("m") >= 0:
                     self.trade["sl"] = ''
                 return
-        if line.lower().find("sl") >= 0:
+        if line.lower().find("sl:") >= 0:
             data = line.lower().split("sl: ")
             self.trade["sl"] = data[1].split(" ")[0].strip()
             return
@@ -140,6 +140,10 @@ class BheemParser:
 
         # start find sl
         self.find_sl(line)
+        if not self.trade['sl']:
+            for keys,part in enumerate(data):
+                if part.lower().find("sl") >= 0 and data[keys+1].lower().find("h") < 0:
+                    self.trade['sl'] = data[keys+1]
         return
 
     def parse_alert_message_data(self, message: str) -> dict:

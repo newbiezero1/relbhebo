@@ -214,6 +214,13 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.trade["entry"], ['cmp', '19.751'])
         self.assertEqual(self.parser.trade['risk'], 0.5)
 
+    def test_parse_message_find_sl_without_dot_online(self):
+        new_messages = '''ORDI limit 82/78.47 SL 76 TP 106 @TRADES'''
+        self.parser.parse_trade_message_data(new_messages)
+        self.assertEqual(self.parser.trade["pair"], 'ordi')
+        self.assertEqual(self.parser.trade["side"], 'long')
+        self.assertEqual(self.parser.trade["entry"], ['82', '78.47'])
+        self.assertEqual(self.parser.trade['sl'], '76')
 
 if __name__ == '__main__':
     unittest.main()
