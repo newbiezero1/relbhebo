@@ -183,7 +183,7 @@ class BheemParser:
                         self.alert['value'] = data[keys+1]
             else:
                 self.alert["action"] = "move_sl"
-        elif message.lower().find("closed") >= 0 or message.lower().find("booked") >= 0:
+        elif message.lower().find("closed") >= 0 or message.lower().find("booked") >= 0 or message.lower().find("take profit") >= 0:
             self.alert["action"] = "close"
             self.alert["value"] = "be"
         elif (message.lower().find("cancelled") >= 0 or message.lower().find("canceled") >= 0

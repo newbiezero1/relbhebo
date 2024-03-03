@@ -114,6 +114,41 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.trade["sl"], '47454')
         self.assertEqual(self.parser.trade["tp"], '51936')
 
+    def test_parse_message_ssl_without_point(self):
+        new_message = "SEI limit 6561/6502 SSL: H4"
+        self.parser.parse_trade_message_data(new_message)
+        self.assertEqual(self.parser.trade["pair"], 'sei')
+        self.assertEqual(self.parser.trade["sl"], '')
+
+    def test_parse_message_find_r(self):
+        new_messages = ''' RNDR - Long (0.25R)
+        Entry: 3.9650
+        SL: 3.740
+        TP: 4.3873'''
+        self.parser.parse_trade_message_data(new_messages)
+        self.assertEqual(self.parser.trade["pair"], 'rndr')
+        self.assertEqual(self.parser.trade["side"], 'long')
+        self.assertEqual(self.parser.trade["entry"], ['3.9650'])
+        self.assertEqual(self.parser.trade["sl"], '3.740')
+        self.assertEqual(self.parser.trade["tp"], '4.3873')
+        self.assertEqual(self.parser.trade['risk'], 0.25)
+
+    def test_parse_message_find_r_oneline(self):
+        new_messages = '''LINK long CMP/19.751 @TRADES (0.5R)'''
+        self.parser.parse_trade_message_data(new_messages)
+        self.assertEqual(self.parser.trade["pair"], 'link')
+        self.assertEqual(self.parser.trade["side"], 'long')
+        self.assertEqual(self.parser.trade["entry"], ['cmp', '19.751'])
+        self.assertEqual(self.parser.trade['risk'], 0.5)
+
+    def test_parse_message_find_sl_without_dot_online(self):
+        new_messages = '''ORDI limit 82/78.47 SL 76 TP 106 @TRADES'''
+        self.parser.parse_trade_message_data(new_messages)
+        self.assertEqual(self.parser.trade["pair"], 'ordi')
+        self.assertEqual(self.parser.trade["side"], 'long')
+        self.assertEqual(self.parser.trade["entry"], ['82', '78.47'])
+        self.assertEqual(self.parser.trade['sl'], '76')
+
     def test_parse_alert_message_data(self):
         new_message = "ICP SL BE (11.683) <@&1202381848127479828>"
         self.parser.parse_alert_message_data(new_message)
@@ -200,40 +235,11 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.alert["pair"], 'jup')
         self.assertEqual(self.parser.alert["action"], 'move_sl')
 
-    def test_parse_message_ssl_without_point(self):
-        new_message = "SEI limit 6561/6502 SSL: H4"
-        self.parser.parse_trade_message_data(new_message)
-        self.assertEqual(self.parser.trade["pair"], 'sei')
-        self.assertEqual(self.parser.trade["sl"], '')
-
-    def test_parse_message_find_r(self):
-        new_messages = ''' RNDR - Long (0.25R)
-        Entry: 3.9650
-        SL: 3.740
-        TP: 4.3873'''
-        self.parser.parse_trade_message_data(new_messages)
-        self.assertEqual(self.parser.trade["pair"], 'rndr')
-        self.assertEqual(self.parser.trade["side"], 'long')
-        self.assertEqual(self.parser.trade["entry"], ['3.9650'])
-        self.assertEqual(self.parser.trade["sl"], '3.740')
-        self.assertEqual(self.parser.trade["tp"], '4.3873')
-        self.assertEqual(self.parser.trade['risk'], 0.25)
-
-    def test_parse_message_find_r_oneline(self):
-        new_messages = '''LINK long CMP/19.751 @TRADES (0.5R)'''
-        self.parser.parse_trade_message_data(new_messages)
-        self.assertEqual(self.parser.trade["pair"], 'link')
-        self.assertEqual(self.parser.trade["side"], 'long')
-        self.assertEqual(self.parser.trade["entry"], ['cmp', '19.751'])
-        self.assertEqual(self.parser.trade['risk'], 0.5)
-
-    def test_parse_message_find_sl_without_dot_online(self):
-        new_messages = '''ORDI limit 82/78.47 SL 76 TP 106 @TRADES'''
-        self.parser.parse_trade_message_data(new_messages)
-        self.assertEqual(self.parser.trade["pair"], 'ordi')
-        self.assertEqual(self.parser.trade["side"], 'long')
-        self.assertEqual(self.parser.trade["entry"], ['82', '78.47'])
-        self.assertEqual(self.parser.trade['sl'], '76')
+    def test_parse_alert_message_take_profit(self):
+        new_message = "AI filled on futures, take profit & spot cancel orders @BHEEM ALERT"
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'ai')
+        self.assertEqual(self.parser.alert["action"], 'close')
 
 if __name__ == '__main__':
     unittest.main()
