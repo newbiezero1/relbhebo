@@ -17,7 +17,7 @@ class BheemParser:
             'value': '',
         }
         self.alert_action_ignore = ['filled', 'stopped', 'update']
-        self.alert_action = ['move_sl', 'close', 'cancel']
+        self.alert_action = ['move_sl', 'close', 'cancel', 'change_sl']
         return
 
     def find_risk(self, line: str) -> None:
@@ -168,17 +168,21 @@ class BheemParser:
         # action must be second
         self.alert["action"] = data[1].lower().replace(',', '')
         if message.lower().find("sl") >= 0:
+            self.alert["value"] = "be"
             if message.lower().find("updated to h") >= 0:
-                self.alert["action"] = 'update'
-            if message.lower().find("updated to ") >= 0:
                 self.alert["action"] = 'update'
             elif message.lower().find("once it touch") >= 0:
                 self.alert['action'] = 'update'
             elif message.lower().find("updated back") >= 0:
                 self.alert['action'] = 'update'
+            elif message.lower().find("updated to ") >= 0:
+                # change sl
+                self.alert["action"] = 'change_sl'
+                for keys, part in enumerate(data):
+                    if part.lower() == 'to':
+                        self.alert['value'] = data[keys+1]
             else:
                 self.alert["action"] = "move_sl"
-            self.alert["value"] = "be"
         elif message.lower().find("closed") >= 0 or message.lower().find("booked") >= 0:
             self.alert["action"] = "close"
             self.alert["value"] = "be"

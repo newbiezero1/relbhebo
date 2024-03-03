@@ -305,7 +305,7 @@ class Bybit:
         return report
 
     def move_sl_to_be(self, pair: str) -> str:
-        """Find position and close by market order"""
+        """Find position and move sl in be"""
         report = ''
         # find open position
         try:
@@ -337,6 +337,25 @@ class Bybit:
         report = f'Move stop for position _{pair}_ to _{entry}_ : *{result["retMsg"]}*\n'
         return report
 
+    def change_sl(self, pair: str, value) -> str:
+        """Find position and change sl"""
+        report = ''
+        value = float(value)
+        # set stopLoss as entry point
+        try:
+            result = self.session.set_trading_stop(category="linear",
+                                                   positionIdx=0,
+                                                   symbol=pair,
+                                                   stopLoss=value)
+        except Exception as e:
+            self.error(e)
+            return ''
+        if result["retCode"] != 0:
+            self.error(result["retMsg"])
+            return ''
+        report = f'Move stop for position _{pair}_ to _{value}_ : *{result["retMsg"]}*\n'
+        return report
+
     def set_alert_data(self, alert: dict) -> None:
         """Set alert data"""
         self.alert["pair"] = alert["pair"].upper() + "USDT"
@@ -352,7 +371,11 @@ class Bybit:
         # close open position
         if self.alert["action"] == "close":
             report = self.close_open_position(self.alert["pair"])
+        # move sl in be
         if self.alert["action"] == "move_sl":
             report = self.move_sl_to_be(self.alert["pair"])
+        # change sl
+        if self.alert['action'] == 'change_sl':
+            report = self.change_sl(self.alert['pair'], self.alert['value'])
 
         return report
