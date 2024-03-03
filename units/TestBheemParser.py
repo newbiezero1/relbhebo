@@ -170,6 +170,12 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.alert["pair"], 'blur')
         self.assertEqual(self.parser.alert["action"], 'update')
 
+    def test_parse_alert_message_update_back_without_sl(self):
+        new_message = "ORDI updated back to HSL @BHEEM ALERT"
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'ordi')
+        self.assertEqual(self.parser.alert["action"], 'update')
+
     def test_parse_alert_message_closed_with_booked(self):
         new_message = "Booked at 0.3274 for BIGTIME @RAMI ALERT"
         self.parser.parse_alert_message_data(new_message)
