@@ -6,9 +6,6 @@ bheem_channels = {'trades': '<id>>',
                   'alerts': '<id>>',
                   'active': '<id>', }
 
-# discord rekt channels for relay
-rekt_channels = {'trades': '<id>', }
-
 # stored reading messages
 files_list = {'bheem_trades': 'files/bheem_trades.json',
               'bheem_alerts': 'files/bheem_alerts.json',

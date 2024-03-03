@@ -89,16 +89,6 @@ def check_trades():
                 notifyer.broken_message(new_message['content'])
 
 
-def check_rekt_updates():
-    all_messages = client.fetch_messages(config.rekt_channels["trades"])
-    new_message = util.check_new_message(all_messages, config.files_list['rekt_trades'])
-    if new_message['content']:
-        new_message['content'] = '*REKT:*\n' + new_message['content']
-        for user in config.users.values():
-            notifyer = Notifyer(user["tg_chat_id"])
-            notifyer.send_message(new_message['content'], markdown=False)
-
-
 def check_lost_sl_trades():
     """Fetch saved trades and check bheem active branch"""
     saved_trades = json.loads(util.get_content_file(config.files_list['lost_sl_trades']).strip())
@@ -154,7 +144,5 @@ client = DiscordClient(config.discord_token)
 check_alert()
 # bheem trade section
 check_trades()
-# rekt trades section
-# check_rekt_updates()
 # check lost sl trades
 check_lost_sl_trades()

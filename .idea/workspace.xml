@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8f94b258-05c8-44d0-a7de-a6f97b26fae3" name="Changes" comment="fix update alert">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bheem.py" beforeDir="false" afterPath="$PROJECT_DIR$/bheem.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bybit.py" beforeDir="false" afterPath="$PROJECT_DIR$/bybit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/units/TestBheemParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/units/TestBheemParser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py.example" beforeDir="false" afterPath="$PROJECT_DIR$/config.py.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +55,7 @@
     "Python.twitter.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "change__stop__alert",
+    "git-widget-placeholder": "master",
     "last_opened_file_path": "C:/Users/kento/PycharmProjects/bheem/files",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -537,7 +536,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix" />
     <MESSAGE value="fix saving trades" />
     <MESSAGE value="remove server tag" />
     <MESSAGE value="add booked alert" />
@@ -562,7 +560,8 @@
     <MESSAGE value="disable rekt" />
     <MESSAGE value="fix find sl without :" />
     <MESSAGE value="fix update alert" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix update alert" />
+    <MESSAGE value="add change sl action" />
+    <option name="LAST_COMMIT_MESSAGE" value="add change sl action" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -571,10 +570,6 @@
           <url>file://$PROJECT_DIR$/util.py</url>
           <line>1</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/units/TestBheemParser.py</url>
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
