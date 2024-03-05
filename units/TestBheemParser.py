@@ -241,5 +241,11 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.alert["pair"], 'ai')
         self.assertEqual(self.parser.alert["action"], 'close')
 
+    def test_parse_alert_message_stop_updated(self):
+        new_message = "TIA stop updated H4 SSL @BHEEM ALERT"
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'tia')
+        self.assertEqual(self.parser.alert["action"], 'update')
+
 if __name__ == '__main__':
     unittest.main()

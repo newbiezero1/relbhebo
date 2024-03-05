@@ -169,7 +169,7 @@ class BheemParser:
         self.alert["action"] = data[1].lower().replace(',', '')
         if message.lower().find("sl") >= 0:
             self.alert["value"] = "be"
-            if message.lower().find("updated to h") >= 0:
+            if message.lower().find("updated to h") >= 0 or message.lower().find("stop updated h") >= 0:
                 self.alert["action"] = 'update'
             elif message.lower().find("once it touch") >= 0:
                 self.alert['action'] = 'update'
