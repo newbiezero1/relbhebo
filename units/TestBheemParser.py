@@ -268,5 +268,11 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.alert["pair"], 'apt')
         self.assertEqual(self.parser.alert["action"], 'close')
 
+    def test_parse_alert_message_sl_hit(self):
+        new_message = '''ETH filled and SL hit -0.25R <@&1212853471712256040>'''
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'eth')
+        self.assertEqual(self.parser.alert["action"], 'update')
+
 if __name__ == '__main__':
     unittest.main()

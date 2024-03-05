@@ -175,6 +175,8 @@ class BheemParser:
                 self.alert['action'] = 'update'
             elif message.lower().find("updated back") >= 0:
                 self.alert['action'] = 'update'
+            elif message.lower().find("sl hit") >= 0:
+                self.alert['action'] = 'update'
             elif message.lower().find("updated to ") >= 0:
                 # change sl
                 self.alert["action"] = 'change_sl'
