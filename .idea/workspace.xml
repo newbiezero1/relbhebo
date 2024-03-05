@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f94b258-05c8-44d0-a7de-a6f97b26fae3" name="Changes" comment="fix close alert">
+    <list default="true" id="8f94b258-05c8-44d0-a7de-a6f97b26fae3" name="Changes" comment="fix remove channel id from msg">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bheem.py" beforeDir="false" afterPath="$PROJECT_DIR$/bheem.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -126,14 +126,6 @@
       <workItem from="1708708622883" duration="2403000" />
       <workItem from="1709155448251" duration="641000" />
       <workItem from="1709327691774" duration="5785000" />
-    </task>
-    <task id="LOCAL-00033" summary="delete stored orders if exceptions">
-      <option name="closed" value="true" />
-      <created>1707159951555</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1707159951555</updated>
     </task>
     <task id="LOCAL-00034" summary="saved every lost not found">
       <option name="closed" value="true" />
@@ -519,7 +511,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709649843910</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="fix remove channel id from msg">
+      <option name="closed" value="true" />
+      <created>1709658479111</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1709658479111</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -537,7 +537,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add tests" />
     <MESSAGE value="refactoring alert parser" />
     <MESSAGE value="fix ssl parser" />
     <MESSAGE value="add test" />
@@ -562,7 +561,8 @@
     <MESSAGE value="fix alert" />
     <MESSAGE value="add new alert fix" />
     <MESSAGE value="fix close alert" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix close alert" />
+    <MESSAGE value="fix remove channel id from msg" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix remove channel id from msg" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -578,7 +578,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/bheem$bheem.coverage" NAME="bheem Coverage Results" MODIFIED="1707450570907" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/bheem$bot.coverage" NAME="bot Coverage Results" MODIFIED="1707159842084" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/relbhebo$.coverage" NAME=" Coverage Results" MODIFIED="1709658431656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/units" />
+    <SUITE FILE_PATH="coverage/relbhebo$.coverage" NAME=" Coverage Results" MODIFIED="1709658464783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/units" />
     <SUITE FILE_PATH="coverage/bheem$twitter.coverage" NAME="twitter Coverage Results" MODIFIED="1707457856662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/bheem$admin.coverage" NAME="admin Coverage Results" MODIFIED="1707359710095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/bheem$notifyer.coverage" NAME="notifyer Coverage Results" MODIFIED="1707021315320" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

@@ -43,7 +43,7 @@ def check_trades():
     new_message = util.check_new_message(all_messages, config.files_list['bheem_trades'])
     if new_message['content']:
         bheem = BheemParser()
-        bheem.parse_trade_message_data(new_message['content'], config.bheem_channels['trades'])
+        bheem.parse_trade_message_data(new_message['content'])
         if bheem.check_trade_data():
             # check sl in trade
             if not bheem.trade["sl"]:
