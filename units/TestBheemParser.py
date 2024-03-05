@@ -247,5 +247,11 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.alert["pair"], 'tia')
         self.assertEqual(self.parser.alert["action"], 'update')
 
+    def test_parse_alert_message_close_first(self):
+        new_message = '''Close APT @BHEEM ALERT (deviation monday high)'''
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'apt')
+        self.assertEqual(self.parser.alert["action"], 'close')
+
 if __name__ == '__main__':
     unittest.main()
