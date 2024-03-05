@@ -1,4 +1,5 @@
 import unittest
+import config
 from bheem import BheemParser
 
 
@@ -53,7 +54,7 @@ class TestBheemParser(unittest.TestCase):
         Entry: 2052.32/1985.78
         SL: 1903.99
         TP: 2415.2'''
-        self.parser.parse_trade_message_data(new_messages)
+        self.parser.parse_trade_message_data(new_messages, config.bheem_channels['trades'])
         self.assertEqual(self.parser.trade["pair"], 'eth')
         self.assertEqual(self.parser.trade["side"], 'long')
         self.assertEqual(self.parser.trade["entry"], ['2052.32', '1985.78'])
@@ -65,7 +66,7 @@ class TestBheemParser(unittest.TestCase):
                 Entry: CMP
                 SL: 1903.99
                 TP: 2415.2'''
-        self.parser.parse_trade_message_data(new_messages)
+        self.parser.parse_trade_message_data(new_messages, config.bheem_channels['trades'])
         self.assertEqual(self.parser.trade["pair"], 'eth')
         self.assertEqual(self.parser.trade["side"], 'long')
         self.assertEqual(self.parser.trade["entry"], ['cmp'])
@@ -74,7 +75,7 @@ class TestBheemParser(unittest.TestCase):
 
     def test_parse_message_one_line(self):
         new_messages = '''SUI long CMP/1.45 SL: 1.4275 <@&1202381806989754378>'''
-        self.parser.parse_trade_message_data(new_messages)
+        self.parser.parse_trade_message_data(new_messages, config.bheem_channels['trades'])
         self.assertEqual(self.parser.trade["pair"], 'sui')
         self.assertEqual(self.parser.trade["side"], 'long')
         self.assertEqual(self.parser.trade["entry"], ['cmp', '1.45'])
@@ -82,7 +83,7 @@ class TestBheemParser(unittest.TestCase):
 
     def test_parse_message_one_line_with_ssl(self):
         new_messages = '''LINK limit 17.382/17.011 SSL: H4 close below 16.696 <@&1202381806989754378>'''
-        self.parser.parse_trade_message_data(new_messages)
+        self.parser.parse_trade_message_data(new_messages, config.bheem_channels['trades'])
         self.assertEqual(self.parser.trade["pair"], 'link')
         self.assertEqual(self.parser.trade["side"], 'long')
         self.assertEqual(self.parser.trade["entry"], ['17.382', '17.011'])
@@ -94,7 +95,7 @@ class TestBheemParser(unittest.TestCase):
             SSL: H1 1.393
             TP: TBD
             <@&1202381806989754378>'''
-        self.parser.parse_trade_message_data(new_messages)
+        self.parser.parse_trade_message_data(new_messages, config.bheem_channels['trades'])
         self.assertEqual(self.parser.trade["pair"], 'sui')
         self.assertEqual(self.parser.trade["side"], 'long')
         self.assertEqual(self.parser.trade["entry"], ['1.422', '1.410'])
@@ -107,7 +108,7 @@ class TestBheemParser(unittest.TestCase):
             Entry: 47751/47557
             SSL: m15 47454
             TP: 51936'''
-        self.parser.parse_trade_message_data(new_messages)
+        self.parser.parse_trade_message_data(new_messages, config.bheem_channels['trades'])
         self.assertEqual(self.parser.trade["pair"], 'btc')
         self.assertEqual(self.parser.trade["side"], 'long')
         self.assertEqual(self.parser.trade["entry"], ['47751', '47557'])
@@ -116,7 +117,7 @@ class TestBheemParser(unittest.TestCase):
 
     def test_parse_message_ssl_without_point(self):
         new_message = "SEI limit 6561/6502 SSL: H4"
-        self.parser.parse_trade_message_data(new_message)
+        self.parser.parse_trade_message_data(new_message, config.bheem_channels['trades'])
         self.assertEqual(self.parser.trade["pair"], 'sei')
         self.assertEqual(self.parser.trade["sl"], '')
 
@@ -125,7 +126,7 @@ class TestBheemParser(unittest.TestCase):
         Entry: 3.9650
         SL: 3.740
         TP: 4.3873'''
-        self.parser.parse_trade_message_data(new_messages)
+        self.parser.parse_trade_message_data(new_messages, config.bheem_channels['trades'])
         self.assertEqual(self.parser.trade["pair"], 'rndr')
         self.assertEqual(self.parser.trade["side"], 'long')
         self.assertEqual(self.parser.trade["entry"], ['3.9650'])
@@ -135,7 +136,7 @@ class TestBheemParser(unittest.TestCase):
 
     def test_parse_message_find_r_oneline(self):
         new_messages = '''LINK long CMP/19.751 @TRADES (0.5R)'''
-        self.parser.parse_trade_message_data(new_messages)
+        self.parser.parse_trade_message_data(new_messages, config.bheem_channels['trades'])
         self.assertEqual(self.parser.trade["pair"], 'link')
         self.assertEqual(self.parser.trade["side"], 'long')
         self.assertEqual(self.parser.trade["entry"], ['cmp', '19.751'])
@@ -143,11 +144,25 @@ class TestBheemParser(unittest.TestCase):
 
     def test_parse_message_find_sl_without_dot_online(self):
         new_messages = '''ORDI limit 82/78.47 SL 76 TP 106 @TRADES'''
-        self.parser.parse_trade_message_data(new_messages)
+        self.parser.parse_trade_message_data(new_messages, config.bheem_channels['trades'])
         self.assertEqual(self.parser.trade["pair"], 'ordi')
         self.assertEqual(self.parser.trade["side"], 'long')
         self.assertEqual(self.parser.trade["entry"], ['82', '78.47'])
         self.assertEqual(self.parser.trade['sl'], '76')
+
+    def test_parse_message_many_line_tag_first(self):
+        new_messages = '''<@&1212853382549872711> 
+
+        ETH - Long (0.25R)
+        Entry: 3625.77
+        SL: 3584.32
+        TP: 3702.63'''
+        self.parser.parse_trade_message_data(new_messages, config.bheem_channels['trades'])
+        self.assertEqual(self.parser.trade["pair"], 'eth')
+        self.assertEqual(self.parser.trade["side"], 'long')
+        self.assertEqual(self.parser.trade["entry"], ['3625.77'])
+        self.assertEqual(self.parser.trade['sl'], '3584.32')
+        self.assertEqual(self.parser.trade['tp'], '3702.63')
 
     def test_parse_alert_message_data(self):
         new_message = "ICP SL BE (11.683) <@&1202381848127479828>"

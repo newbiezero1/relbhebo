@@ -191,10 +191,10 @@ class BheemParser:
             self.alert["action"] = "cancel"
         return self.alert
 
-    def parse_trade_message_data(self, message: str) -> dict:
+    def parse_trade_message_data(self, message: str, channel_id: int) -> dict:
         """parse bheem message"""
         # remove server tag
-        message = message.replace('<@&1202381806989754378>','').strip().strip('**')
+        message = message.replace(f'<@&{channel_id}>','').strip().strip('**')
         lines = message.split("\n")
         if len(lines) == 1:
             # one line message
