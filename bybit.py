@@ -61,6 +61,8 @@ class Bybit:
                 index = 100
         elif diff > 100 and diff < 1000:
             index = 100
+            if value > 1000:
+                index = 1000
         return value / (index * 1000)
 
     def set_trade_data(self, trade: dict) -> None:
@@ -168,7 +170,6 @@ class Bybit:
         else:
             amount_usdt = (self.balance * entry * sl_size) / (self.trade["sl"] - entry)
         order = {"symbol": self.trade["pair"], "side": self.trade["side"], "orderType": "Limit"}
-
         round_index = self.get_round_index(entry)
         order["qty"] = round(amount_usdt / entry, round_index)
         order['qty'] = self.check_max_qty(order["qty"])
