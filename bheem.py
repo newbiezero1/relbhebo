@@ -154,12 +154,12 @@ class BheemParser:
         if data[0].isupper():
             # pair maybe first and upper
             self.alert["pair"] = data[0].lower().strip(":")
-        elif message.lower().find("for") >= 0:
-            # maybe 'close for BTC'
-            self.alert['pair'] = data[data.index('for')+1]
         elif data[1].isupper():
             # pair maybe second and uper
             self.alert["pair"] = data[1].lower()
+        elif message.lower().find("for") >= 0:
+            # maybe 'close for BTC'
+            self.alert['pair'] = data[data.index('for')+1]
         else:
             # cant recognize pair
             return self.alert

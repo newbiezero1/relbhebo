@@ -274,5 +274,11 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.alert["pair"], 'eth')
         self.assertEqual(self.parser.alert["action"], 'update')
 
+    def test_parse_alert_message_for_r(self):
+        new_message = '''Close NMR at 43 for +0.56R @RAMI ALERT'''
+        self.parser.parse_alert_message_data(new_message)
+        self.assertEqual(self.parser.alert["pair"], 'nmr')
+        self.assertEqual(self.parser.alert["action"], 'close')
+
 if __name__ == '__main__':
     unittest.main()
