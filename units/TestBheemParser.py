@@ -115,6 +115,19 @@ class TestBheemParser(unittest.TestCase):
         self.assertEqual(self.parser.trade["sl"], '47454')
         self.assertEqual(self.parser.trade["tp"], '51936')
 
+    def test_parse_message_many_lines_with_ssl_m15(self):
+        new_messages = '''****VANRY/SPOT - LONG**
+
+        Entry:  2034/19331
+        SSL: 1D 1718
+        TP: 3150'''
+        self.parser.parse_trade_message_data(new_messages)
+        self.assertEqual(self.parser.trade["pair"], 'vanry')
+        self.assertEqual(self.parser.trade["side"], 'long')
+        self.assertEqual(self.parser.trade["entry"], ['2034', '19331'])
+        self.assertEqual(self.parser.trade["sl"], '1718')
+        self.assertEqual(self.parser.trade["tp"], '3150')
+
     def test_parse_message_ssl_without_point(self):
         new_message = "SEI limit 6561/6502 SSL: H4"
         self.parser.parse_trade_message_data(new_message)
@@ -279,6 +292,7 @@ class TestBheemParser(unittest.TestCase):
         self.parser.parse_alert_message_data(new_message)
         self.assertEqual(self.parser.alert["pair"], 'nmr')
         self.assertEqual(self.parser.alert["action"], 'close')
+
 
 if __name__ == '__main__':
     unittest.main()
