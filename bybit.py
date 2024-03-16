@@ -84,7 +84,7 @@ class Bybit:
             if entry == "cmp":
                 self.trade["entry"].append("cmp")
                 continue
-            if self.current_price < 1 and float(entry) > 1:
+            if self.current_price < 1.6 and float(entry) > 1.5:
                 # need check msg price
                 entry = self.format_big_value_to_real(float(entry))
                 self.trade["entry"].append(entry)

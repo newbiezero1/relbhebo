@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f94b258-05c8-44d0-a7de-a6f97b26fae3" name="Changes" comment="fix alert message">
+    <list default="true" id="8f94b258-05c8-44d0-a7de-a6f97b26fae3" name="Changes" comment="fix ssl 1d">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bheem.py" beforeDir="false" afterPath="$PROJECT_DIR$/bheem.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/units/TestBheemParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/units/TestBheemParser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bybit.py" beforeDir="false" afterPath="$PROJECT_DIR$/bybit.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,15 +125,7 @@
       <workItem from="1709155448251" duration="641000" />
       <workItem from="1709327691774" duration="5785000" />
       <workItem from="1709809562975" duration="2601000" />
-      <workItem from="1710382615358" duration="3740000" />
-    </task>
-    <task id="LOCAL-00038" summary="pep8">
-      <option name="closed" value="true" />
-      <created>1707180675633</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1707180675633</updated>
+      <workItem from="1710382615358" duration="4457000" />
     </task>
     <task id="LOCAL-00039" summary="fix update type alert">
       <option name="closed" value="true" />
@@ -520,7 +511,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710270585709</updated>
     </task>
-    <option name="localTasksCounter" value="87" />
+    <task id="LOCAL-00087" summary="fix ssl 1d">
+      <option name="closed" value="true" />
+      <created>1710524639641</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1710524639654</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -538,7 +537,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="remove market order for saved trades" />
     <MESSAGE value="add cancel alert type" />
     <MESSAGE value="fix ** in start msg" />
     <MESSAGE value="add chatgpt" />
@@ -563,7 +561,8 @@
     <MESSAGE value="fix sl hit message" />
     <MESSAGE value="fix format value" />
     <MESSAGE value="fix alert message" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix alert message" />
+    <MESSAGE value="fix ssl 1d" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix ssl 1d" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
