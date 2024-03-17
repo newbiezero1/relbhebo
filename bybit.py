@@ -86,7 +86,7 @@ class Bybit:
                 continue
             if self.current_price < 1.6 and float(entry) > 1.5:
                 # need check msg price
-                entry = self.format_big_value_to_real(float(entry))
+                entry = round(self.format_big_value_to_real(float(entry)), 5)
                 self.trade["entry"].append(entry)
                 continue
             self.trade["entry"].append(float(entry))
