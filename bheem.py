@@ -128,6 +128,8 @@ class BheemParser:
         self.find_risk(line)
         # start find side
         self.find_side(line)
+        if not self.trade['side']:
+            self.trade['side'] = 'long'
 
         # start find entry
         for part in data:
